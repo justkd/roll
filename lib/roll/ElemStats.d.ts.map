@@ -1,0 +1,1 @@
+{"version":3,"file":"ElemStats.d.ts","sourceRoot":"","sources":["../../src/roll/ElemStats.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AAMH;;;GAGG;AACH,eAAO,MAAM,SAAS;IACpB;;;;OAIG;gBACS,MAAM,EAAE,KAAG,MAAM;IAK7B;;;;OAIG;kBACW,MAAM,EAAE,KAAG,MAAM;IAM/B;;;;OAIG;iBACU,MAAM,EAAE,KAAG,MAAM,EAAE;IAchC;;;;OAIG;kBACW,MAAM,EAAE,KAAG,MAAM;CAWhC,CAAC"}

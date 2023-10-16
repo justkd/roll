@@ -1,9 +1,9 @@
 {
   "name": "@justkd/roll",
   "author": "Cadence Holmes, @justkd",
-  "version": "0.0.1",
+  "version": "2.0.0",
   "license": "MIT",
-  "description": "",
+  "description": "Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.",
   "keywords": [],
   "repository": {
     "type": "git",
