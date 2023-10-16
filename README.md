@@ -1,100 +1,468 @@
-# [template-ts-npm-package](https://github.com/justkd/template-ts-npm-package)
+# [@justkd/roll](@justkd/roll)
 
-![CircleCI](https://img.shields.io/circleci/build/gh/justkd/template-ts-npm-package/master?token=5d76eb51f1f5547eb2c610645c07272cbb149f58&style=for-the-badge&logo=circleci)
+![CircleCI](https://img.shields.io/circleci/build/gh/justkd/roll/master?token=d3afcc64819c5e9c38e2f653e196382415a4ec88&style=for-the-badge&logo=circleci)
 
-![npm](https://img.shields.io/npm/dw/%40justkd/template-ts-npm-package?style=for-the-badge&logo=npm&label=NPM)
+![npm](https://img.shields.io/npm/dw/%40justkd/roll?style=for-the-badge&logo=npm&label=NPM)
 
-GitHub template repo for building an NPM package.
+Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.
 
-## Use
+## Install
+```
+npm i @justkd/roll
+```
+```
+yarn add @justkd/roll
+```
 
-- Clone the template to create a new GitHub repo.
-- Configure your project. Instructions are below.
-- `cd` into the project directory and run `nvm use` to switch to the configured `node` version found in `.nvmrc`.
-- `yarn` or `npm i` to install node modules.
-- Start building your module in `src`.
-- `yarn build` to generate `lib` and `docs`.
-- `yarn publish` or `yarn publish-public` to publish to `npm`.
+## Basic Use
+```
+const roll = new Roll()
 
-> NPM may ask you to login/adduser to publish. In codesandbox, when you run `npm adduser` you will need to copy 
-> the link it provides and log in in a separate browser window. Do not click to open the link from the terminal. 
-> Leave the prompt open and it will progress after login in the other window.
+const rand = roll.random() // random number in the range 0-1
+const d6 = roll.d(6)       // random integer in the range 1-6
+const d20 = roll.d(20)     // random integer in the range 1-20
+```
 
-## Setup your package config
+## Extended Use
+```
+// Roll can use either normal or gaussian distribution.
 
-### Fields you may need to update in `package.json`
+const roll = new Roll();
+const gaussSkew = roll.gaussian(0.85);
+```
+```
+// Roll until the internal history is filled, then report stats.
+
+const roll = new Roll({ maxHistory: 1000 });
+let i = roll.maxHistory();
+while (i--) roll.random();
+const stats = {
+    history: roll.history(),
+    mean: roll.mean(),
+    median: roll.median(),
+    modes: roll.modes(),
+    standardDeviation: roll.stdDev() // normalized 0-1
+};
+console.log(stats);
+```
+```
+// Round to two decimal places using the static `Roll.round()`.
+
+const twoDecimalPlaces = () => {
+const roll = new Roll()
+    const rounded = Roll.round(roll.random(), 2);
+    return rounded;
+};
+console.log(twoDecimalPlaces());
+```
 
 ```
-{
-  "name",
-  "author",
-  "version",
-  "license",
-  "description",
-  "keywords",
-  "repository: {
-    "url"
-  }
+// Numbers can be scaled from any known range to another.
+
+const arbitraryScaling = () => {
+	const roll = new Roll()
+	const scale = Roll.scale;
+    const scaled = scale(roll.random(), [0, 1], [5, 72]);
+    return scaled;
 }
+console.log(arbitraryScaling())
 ```
 
-### Other files that may need attention
+```
+// Numbers can be clipped to a minimum and maximum allowed value.
 
-- `.nvmrc`
-  - Set to the target `node` version your project will use.
-- `CONTRIBUTING.md`
-- `LICENSE`
-  - Name and date for copyright notice.
-  - Or replace with new license matching type you put in `package.json`.
-- `README.md`
-  - Replace this sucker with your own project readme.
-  - Update the header link.
-  - Update the NPM badge link.
-    - Replace or remove the scope `%40justkd`.
-    - Replace the package name `template-ts-npm-package`.
-  - Update CLCI badge link:  
-    `https://img.shields.io/circleci/build/gh/GH_USERNAME/REPO_NAME/BRANCH_NAME?token=API_TOKEN&style=for-the-badge&logo=circleci`
-    | Script        | Example                           | Description
-    | :------------ | :-------------------------------- | :----------
-    | _GH_USERNAME_ | eg. justkd                        | Your GitHub username.
-    | _REPO_NAME_   | eg. template--ts-npm-package      | The name you gave your repo on GitHub.
-    | _BRANCH_NAME_ | eg. master                        | The name of the branch being targeted.
-    | _API_TOKEN_   | eg. blahBlah91blah12081238951Blah | The individual project `Status` level API token from CLCI.
+const clipped = () => {
+	const roll = new Roll()
+	const clip = Roll.clip;
+	const clipped = clip(roll.random(), [0.2, 0.8]);
+	return clipped;
+};
+console.log(clipped());
+```
 
-## Included package scripts
+```
+// Using gaussian distribution, return a whole number between 1 and the maximum safe integer value.
 
-| Script                   | Description
-| :----------------------- | :----------
-| `npm run test`           | Run tests on demand.
-| `npm run watch`          | Run tests on change.
-| `npm run build`          | Shortcut to run, `build:lib`, `build:docs`, and `minify`.
-| `npm run build:lib`      | Build module (replaces files in `./lib`).
-| `npm run build:docs`     | Build the documentation using [TypeDoc](http://typedoc.org) and [TypeDoc Markdown](https://github.com/tgreyuk/typedoc-plugin-markdown/tree/master/packages/typedoc-plugin-markdown) (replaces files in `./docs`).
-| `npm run minify`.        | Minify `.js` files found in `./lib` and `./docs`.
-| `npm run publish`        | Publish the contents of the `./lib` folder and `./README.md` to NPM as a private package.
-| `npm run publish-public` | I know. Just let me be thorough ok? Publish the contents of the `./lib` folder and `./README.md` to NPM as a public pacakage.
+const wholeNumber = () => {
+	const roll = new Roll()
 
-## (optional) Setting up GitHub Pages and CircleCI
+	const max = Number.MAX_SAFE_INTEGER;
+    const { scale, round } = Roll;
 
-### GitHub Pages
+    const scaled = scale(roll.gaussian(), [0, 1], [0, max]);
+    const whole = round(scaled, 0);
+    return whole;
+}
+console.log(wholeNumber())
+```
 
-Set up a GitHub Pages site for your package as a _project site_ with the following steps:
+## API
 
-1. Follow the instructions in the [GitHub Pages Docs](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) to set up Pages on your GitHub account or organisation if not already configured.
-2. Go to your repository for this package on GitHub and click `Settings`
-3. Click `Pages`
-4. Configure the branch as `main` (or `master`) and the directory to `./docs`
-5. Configure the remaining settings as per your own preferences
+<table>
+<tbody align="left">
+    <col width="10%">
+    <col width="40%">
+    <col width="10%">
+    <col width="40%">
+    <tr>
+        <th>Method</th>
+        <th>Parameters</th>
+        <th>Return</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>.uniform()</code></td>
+        <td></td>
+        <td><code>{number}</code></td>
+        <td>Generates a 53-bit random real in the interval [0, 1] with uniform distribution.</td>
+    </tr>
+    <tr>
+        <td><code>.random()</code></td>
+        <td></td>
+        <td><code>{number}</code></td>
+        <td>Convenience function. Alias for <code>.uniform()</code>.</td>
+    </tr>
+    <tr>
+        <td><code>.gaussian(skew)</code></td>
+        <td>
+            <ul>
+                <li><code>skew?</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            In the range [-1, 1]. Negative values skew data RIGHT, positive values skew data LEFT. Default <code>0</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Generates a 53-bit random real in the interval [0, 1] with gaussian distribution.
+        </td>
+    </tr>
+    <tr>
+        <td><code>.d(sides, skew)</code></td>
+        <td>
+             <ul>
+                <li><code>sides</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The number of sides the die should represent. Allows but ignores decimals.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+            <ul>
+                <li><code>skew?</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            In the range [-1,1]. If `skew` is a number,`roll.d` will use gaussian distribution instead of normal distribution. Pass `0` to use gaussian distribution without skew.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Simulates a die-rolling metaphor. Generates a 53-bit random real in the interval [0, 1] with uniform or gaussian distribution, then scales it to a range [1, n] where n is the number of sides, then rounds to whole number.</td>
+    </tr>
+    <tr>
+        <td><code>.seed(seed)</code></td>
+        <td>
+            <ul>
+                <li><code>seed?</code>
+                    <ul>
+                        <li>
+                            <code>{number|number[]}</code>
+                        </li>
+                        <li>
+                            Unsigned 32-bit integer (<code>number</code>) or <code>number[]</code> of arbitrary size/values.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number|number[]}</code> - The current seed.
+        </td>
+        <td>Set or get the seed. Automatically clears history.</td>
+    </tr>
+    <tr>
+        <td><code>.history()</code></td>
+        <td></td>
+        <td>
+            <code>{number[]}</code> - The current history.
+        </td>
+        <td>Retrieve a copy of the internal <code>history</code> with no references.</td>
+    </tr>
+    <tr>
+        <td><code>.maxHistory(size)</code></td>
+        <td>
+            <ul>
+                <li><code>size?</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The maximum history size. Default <code>1000</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number}</code> - The current <code>maxHistory</code>
+        </td>
+        <td>Set or get the maximum history size.</td>
+    </tr>
+    <tr>
+        <td><code>.clearHistory()</code></td>
+        <td></td>
+        <td></td>
+        <td>Reset the internal <code>history</code>. Retains the current <code>maxHistory</code>.</td>
+    </tr>
+    <tr>
+        <td><code>.mean(arr)</code></td>
+        <td>
+            <ul>
+                <li><code>arr?</code>
+                    <ul>
+                        <li>
+                            <code>{number[]}</code>
+                        </li>
+                        <li>
+                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Calculate the statistical mean of a <code>number[]</code> or the current <code>history</code>.</td>
+    </tr>
+    <tr>
+        <td><code>.median(arr)</code></td>
+        <td>
+            <ul>
+                <li><code>arr?</code>
+                    <ul>
+                        <li>
+                            <code>{number[]}</code>
+                        </li>
+                        <li>
+                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number}</code>
+        </td>
+        <td>
+            Calculate the statistical median of a <code>number[]</code> or the current <code>history</code>.
+        </td>
+    </tr>
+    <tr>
+        <td><code>.modes(arr)</code></td>
+        <td>
+            <ul>
+                <li><code>arr?</code>
+                    <ul>
+                        <li>
+                            <code>{number[]}</code>
+                        </li>
+                        <li>
+                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number[]}</code>
+        </td>
+        <td>
+            Calculate the statistical modes of a <code>number[]</code> or the current <code>history</code>.
+        </td>
+    </tr>
+    <tr>
+        <td><code>.standardDeviation(arr)</code></td>
+        <td>
+            <ul>
+                <li><code>arr?</code>
+                    <ul>
+                        <li>
+                            <code>{number[]}</code>
+                        </li>
+                        <li>
+                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number}</code> - Standard deviation is normalized [0, 1].
+        </td>
+        <td>
+            Calculate the standard deviation of a <code>number[]</code> or the current <code>history</code>.
+        </td>
+    </tr>
+</tbody>
+</table>
 
-### CircleCI
+### Static Methods
 
-A basic [CircleCI](https://circleci.com) config is included in this template.
-
-1. Login to [CircleCI](https://circleci.com) with GitHub
-2. Click "Projects"
-3. Click "Set up project" for this repository and follow the instructions
-4. Go to project settings and select "status badges"
-5. Add an API key to your project
-6. Copy the new API key and replace the token and project name in the status badge placeholder at the top of this readme
-
-Also consider setting up branch protection and requiring passing checks from CircleCI for pull requests.
+<table>
+<tbody align="left">
+    <tr>
+        <th>Method</th>
+        <th>Parameters</th>
+        <th>Return</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>Roll.random()</code></td>
+        <td></td>
+        <td><code>{number}</code></td>
+        <td>Convenience function to generate a randomly seeded random number normalized [0, 1].</td>
+    </tr>
+    <tr>
+        <td><code>Roll.d(sides)</code></td>
+        <td>
+            <ul>
+                <li><code>sides</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The desired number of sides to simulate.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td>
+            <code>{number}</code>
+        </td>
+        <td>
+            Convenience function to generate a randomly seeded random number in the range [1, sides].
+        </td>
+    </tr>
+    <tr>
+        <td><code>Roll.createRandomSeed()</code></td>
+        <td></td>
+        <td>
+            <code>{number[]}</code> - Randomly generated array of random size <code>(size > 20 < 623)</code>.
+        </td>
+        <td>Generate an array of random size and contents to use as a seed.</td>
+    </tr>
+    <tr>
+        <td><code>Roll.scale(value, r1, r2)</code></td>
+        <td>
+            <ul>
+                <li><code>value</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The initial value.
+                        </li>
+                    </ul>
+                </li>
+                <li><code>r1</code>
+                    <ul>
+                        <li>
+                            <code>{[number, number]}</code>
+                        </li>
+                        <li>
+                            The initial range [min, max].
+                        </li>
+                    </ul>
+                </li>
+                <li><code>r2</code>
+                    <ul>
+                        <li>
+                            <code>{[number, number]}</code>
+                        </li>
+                        <li>
+                            The target range [min, max].
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Scale a value from a known range to a new range.</td>
+    </tr>
+    <tr>
+        <td><code>Roll.clip(value, range)</code></td>
+        <td>
+            <ul>
+                <li><code>value</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The initial value.
+                        </li>
+                    </ul>
+                </li>
+                <li><code>range</code>
+                    <ul>
+                        <li>
+                            <code>{[number, number]}</code>
+                        </li>
+                        <li>
+                            Array containing the minimum and maximum possible values.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Limit a value to a hard minimum and maximum.</td>
+    </tr>
+    <tr>
+        <td><code>Roll.round(value, places)</code></td>
+        <td>
+            <ul>
+                <li><code>value</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The initial value.
+                        </li>
+                    </ul>
+                </li>
+                <li><code>places?</code>
+                    <ul>
+                        <li>
+                            <code>{number}</code>
+                        </li>
+                        <li>
+                            The desired number of decimal places. Passing <code>0</code> results in a whole number. Default <code>0</code>.
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </td>
+        <td><code>{number}</code></td>
+        <td>Round a value to a specific number of places. Decimal values < 5 (for any given place) are rounded down.</td>
+    </tr>
+</tbody>
+</table>

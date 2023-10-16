@@ -1,18 +1,13 @@
 {
-  "name": "@justkd/template-ts-npm-package",
+  "name": "@justkd/roll",
   "author": "Cadence Holmes, @justkd",
-  "version": "0.0.2",
+  "version": "2.0.0",
   "license": "MIT",
-  "description": "GitHub template repo for building a typescript NPM package.",
-  "keywords": [
-    "template",
-    "ts",
-    "typescript",
-    "npm"
-  ],
+  "description": "Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.",
+  "keywords": [],
   "repository": {
     "type": "git",
-    "url": "https://github.com/justkd/template-ts-npm-package"
+    "url": "https://github.com/justkd/roll"
   },
   "scripts": {
     "test": "npx mocha --require mocha-dom",
