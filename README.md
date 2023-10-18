@@ -29,11 +29,11 @@ import type { Seed } from '@justkd/roll';
 ## Basic Use - Static Methods
 Use the static method `.random` to generate a random number in the range 0-1.
 ```
-const rand = Roll.random();
+const rand = Roll.random(); // float 0-1
 ```
-Use the static method `.d` to generate a random integer in the range 1-20.
+Use the static method `.d` to generate a random integer in the range 1-n.
 ```
-const d20 = Roll.d(20);
+const d20 = Roll.d(20); // int 1-20
 ```
 
 ## Basic Use - Instance Methods
