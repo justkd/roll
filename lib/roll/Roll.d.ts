@@ -16,25 +16,26 @@
  */
 export type Seed = number | number[] | Uint32Array | undefined;
 /**
+ * @class
  * Class representing a random number manager.
  * Includes Mersenne Twister uniform distribution, Box Mueller gaussian
  * distribution, n-sided die rolling, history of variable max size, elementary
  * statistics, and scale/clip/round convenience functions.
  * @example
  * const rand = Roll.random()
- * const save = Roll.d(20)
+ * const d20 = Roll.d(20)
  * @example
  * const roll = new Roll()
  * let loops = 100
  *
  * while (loops--) roll.d(20)
- * const uniformResults = [...roll.history()]
+ * const uniformResults = roll.history()
  *
  * roll.clearHistory()
  *
  * loops = 100
  * while (loops--) roll.d(20, 0)
- * const gaussianResults = [...roll.history()]
+ * const gaussianResults = roll.history()
  * @example
  * const roll = new Roll()
  * let loops = 100
@@ -43,7 +44,7 @@ export type Seed = number | number[] | Uint32Array | undefined;
  * const mean = roll.mean()
  * const median = roll.median()
  * const modes = roll.modes()
- * const stdDev = roll.standardDeviation()
+ * const stdDev = roll.stdDev()
  * @example
  * const seed = Roll.createRandomSeed()
  * const roll = new Roll({ maxHistory: 1000 })
@@ -147,11 +148,15 @@ export declare class Roll {
      */
     readonly stdDev: (arr?: number[]) => number;
     /**
+     * @constructor
      * Instantiates a new `Roll()`
-     * @param {Seed} [seed] - The initial seed value. Should be an unsigned
+     * @param {Object} [opts]
+     * @param {Seed} [opts.seed] - The initial seed value. Should be an unsigned
      * integer or `Uint32Array` of arbitrary values and length. If
      * `seed=undefined`, `Roll()` will generate its own random seed using
      * `Roll.createRandomSeed()`.
+     * @param {number} [opts.maxHistory] - The initial max history value.
+     * Default is `Infinity`.
      * @note `Roll` is a class representing a random number manager.
      * Includes Mersenne Twister uniform distribution, Box Mueller gaussian
      * distribution, n-sided die rolling, history of variable max size, elementary
@@ -226,6 +231,6 @@ export declare class Roll {
      * @returns {number}
      * @static
      */
-    static round(value: number, places: number): number;
+    static round(value: number, places?: number): number;
 }
 //# sourceMappingURL=Roll.d.ts.map
