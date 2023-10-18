@@ -20,6 +20,12 @@ npm i @justkd/roll
 yarn add @justkd/roll
 ```
 
+## Exports
+```
+import { Roll } from '@justkd/roll';
+import type { Seed } from '@justkd/roll';
+```
+
 ## Basic Use - Static Methods
 Use the static method `.random` to generate a random number in the range 0-1.
 ```

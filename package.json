@@ -4,7 +4,19 @@
   "version": "2.1.0",
   "license": "MIT",
   "description": "Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.",
-  "keywords": [],
+  "keywords": [
+    "pseudo",
+    "random",
+    "pseudo-random",
+    "generator",
+    "normal",
+    "skew",
+    "skewed",
+    "d20",
+    "dice",
+    "die",
+    "rolling"
+  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/justkd/roll"
