@@ -14,391 +14,53 @@
 <h2>@justkd/roll</h2></div>
 <div class="tsd-panel tsd-typography"><a id="md:justkdroll" class="tsd-anchor"></a><h1><a href="#md:justkdroll"><a href="@justkd/roll">@justkd/roll</a></a></h1><p><img src="https://img.shields.io/circleci/build/gh/justkd/roll/master?token=d3afcc64819c5e9c38e2f653e196382415a4ec88&style=for-the-badge&logo=circleci" alt="CircleCI"></p>
 <p><img src="https://img.shields.io/npm/dw/%40justkd/roll?style=for-the-badge&logo=npm&label=NPM" alt="npm"></p>
-<p>Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.</p>
+<p>Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions. Each instance 
+can be seeded but also automatically generates its own random seed on creation. </p>
+<a id="md:notes-and-todo" class="tsd-anchor"></a><h2><a href="#md:notes-and-todo">Notes and Todo</a></h2><ul>
+<li><code>.random</code> - add tests for optional gaussian functionality</li>
+<li>does setting maxHistory reset the history array? should it? if not how should it handle truncating?</li>
+<li>audit/optimize tests - originally (mostly) for older version are they all still valid?</li>
+</ul>
 <a id="md:install" class="tsd-anchor"></a><h2><a href="#md:install">Install</a></h2><pre><code><span class="hl-0">npm</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> @</span><span class="hl-0">justkd</span><span class="hl-1">/</span><span class="hl-0">roll</span>
 </code><button>Copy</button></pre>
 <pre><code><span class="hl-0">yarn</span><span class="hl-1"> </span><span class="hl-0">add</span><span class="hl-1"> @</span><span class="hl-0">justkd</span><span class="hl-1">/</span><span class="hl-0">roll</span>
 </code><button>Copy</button></pre>
-<a id="md:basic-use" class="tsd-anchor"></a><h2><a href="#md:basic-use">Basic Use</a></h2><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">() </span><span class="hl-5">// random number in the range 0-1</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d6</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">6</span><span class="hl-1">)       </span><span class="hl-5">// random integer in the range 1-6</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d20</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">20</span><span class="hl-1">)     </span><span class="hl-5">// random integer in the range 1-20</span>
+<a id="md:basic-use---static-methods" class="tsd-anchor"></a><h2><a href="#md:basic-use---static-methods">Basic Use - Static Methods</a></h2><p>Use the static method <code>.random</code> to generate a random number in the range 0-1.</p>
+<pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span>
 </code><button>Copy</button></pre>
-<a id="md:extended-use" class="tsd-anchor"></a><h2><a href="#md:extended-use">Extended Use</a></h2><pre><code><span class="hl-5">// Roll can use either normal or gaussian distribution.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussSkew</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">gaussian</span><span class="hl-1">(</span><span class="hl-6">0.85</span><span class="hl-1">);</span>
+<p>Use the static method <code>.d</code> to generate a random integer in the range 1-20.</p>
+<pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d20</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">20</span><span class="hl-1">);</span>
 </code><button>Copy</button></pre>
-<pre><code><span class="hl-5">// Roll until the internal history is filled, then report stats.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-6">1000</span><span class="hl-1"> });</span><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">maxHistory</span><span class="hl-1">();</span><br/><span class="hl-7">while</span><span class="hl-1"> (</span><span class="hl-0">i</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">stats</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-0">history:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">mean:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">median:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">modes:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">standardDeviation:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">stdDev</span><span class="hl-1">() </span><span class="hl-5">// normalized 0-1</span><br/><span class="hl-1">};</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-0">stats</span><span class="hl-1">);</span>
+<a id="md:basic-use---instance-methods" class="tsd-anchor"></a><h2><a href="#md:basic-use---instance-methods">Basic Use - Instance Methods</a></h2><p>Use instance methods to track history and expose statistic functions.</p>
+<pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-5">10</span><span class="hl-1">;</span><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">i</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">history</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">(); </span><span class="hl-7">// retrieve the internal history</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">avg</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">();        </span><span class="hl-7">// retrieve the current average</span>
 </code><button>Copy</button></pre>
-<pre><code><span class="hl-5">// Round to two decimal places using the static `Roll.round()`.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-4">twoDecimalPlaces</span><span class="hl-1"> = () </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rounded</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">round</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">(), </span><span class="hl-6">2</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-7">return</span><span class="hl-1"> </span><span class="hl-0">rounded</span><span class="hl-1">;</span><br/><span class="hl-1">};</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">twoDecimalPlaces</span><span class="hl-1">());</span>
+<a id="md:extended-use" class="tsd-anchor"></a><h2><a href="#md:extended-use">Extended Use</a></h2><a id="md:roll-can-use-either-uniform-normal-or-gaussian-distribution" class="tsd-anchor"></a><h4><a href="#md:roll-can-use-either-uniform-normal-or-gaussian-distribution"><code>Roll</code> can use either uniform (normal) or gaussian distribution.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><br/><span class="hl-7">/* convenience function, same as `.uniform()` */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">random</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();         </span><br/><br/><span class="hl-7">/* random number in the range 0-1, uniform (normal) distribution */</span><span class="hl-1"> </span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">uniform</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">uniform</span><span class="hl-1">();        </span><br/><br/><span class="hl-7">/* random number in the range 0-1, gaussian distribution, undefined skew (same as 0 skew) */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussian</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">gaussian</span><span class="hl-1">();        </span><br/><br/><span class="hl-7">/* random number in the range 0-1, gaussian distribution, skewed RIGHT (normalized -1 to 1) */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussianSkew</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">gaussian</span><span class="hl-1">(</span><span class="hl-5">0.15</span><span class="hl-1">); </span>
 </code><button>Copy</button></pre>
-<pre><code><span class="hl-5">// Numbers can be scaled from any known range to another.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-4">arbitraryScaling</span><span class="hl-1"> = () </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scale</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-0">scale</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">(), [</span><span class="hl-6">0</span><span class="hl-1">, </span><span class="hl-6">1</span><span class="hl-1">], [</span><span class="hl-6">5</span><span class="hl-1">, </span><span class="hl-6">72</span><span class="hl-1">]);</span><br/><span class="hl-1">    </span><span class="hl-7">return</span><span class="hl-1"> </span><span class="hl-0">scaled</span><span class="hl-1">;</span><br/><span class="hl-1">}</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">arbitraryScaling</span><span class="hl-1">())</span>
+<a id="md:roll-can-use-either-uniform-normal-or-gaussian-distribution-part-ii" class="tsd-anchor"></a><h4><a href="#md:roll-can-use-either-uniform-normal-or-gaussian-distribution-part-ii"><code>Roll</code> can use either uniform (normal) or gaussian distribution (part II).</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><br/><span class="hl-7">/* random integer in the range 1-6, uniform (normal) distribution */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d6</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">6</span><span class="hl-1">);                     </span><br/><br/><span class="hl-7">/* random integer in the range 1-8, gaussian distribution, no skew */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d8</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">8</span><span class="hl-1">, </span><span class="hl-5">0</span><span class="hl-1">);   </span><br/><br/><span class="hl-7">/* random integer in the range 1-12, gaussian distribution, skewed LEFT (normalized -1 to 1) */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d12</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">12</span><span class="hl-1">, </span><span class="hl-5">0.85</span><span class="hl-1">);</span><br/><br/><span class="hl-7">/* random integer in the range 1-20, gaussian distribution, skewed RIGHT (normalized -1 to 1) */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">d20</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">20</span><span class="hl-1">, -</span><span class="hl-5">0.35</span><span class="hl-1">);</span>
 </code><button>Copy</button></pre>
-<pre><code><span class="hl-5">// Numbers can be clipped to a minimum and maximum allowed value.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-4">clipped</span><span class="hl-1"> = () </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">clip</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-0">clip</span><span class="hl-1">;</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">clipped</span><span class="hl-1"> = </span><span class="hl-4">clip</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">(), [</span><span class="hl-6">0.2</span><span class="hl-1">, </span><span class="hl-6">0.8</span><span class="hl-1">]);</span><br/><span class="hl-1">    </span><span class="hl-7">return</span><span class="hl-1"> </span><span class="hl-0">clipped</span><span class="hl-1">;</span><br/><span class="hl-1">};</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">clipped</span><span class="hl-1">());</span>
+<a id="md:each-instance-of-roll-can-be-given-a-maxhistory" class="tsd-anchor"></a><h4><a href="#md:each-instance-of-roll-can-be-given-a-maxhistory">Each instance of <code>Roll</code> can be given a <code>maxHistory</code>.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-5">1000</span><span class="hl-1"> });</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">maxHistory</span><span class="hl-1">();</span><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">i</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">stats</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-0">history:</span><span class="hl-1"> </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">mean:</span><span class="hl-1">    </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">median:</span><span class="hl-1">  </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">modes:</span><span class="hl-1">   </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">stdDev:</span><span class="hl-1">  </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">stdDev</span><span class="hl-1">(), </span><span class="hl-7">// standard deviation normalized 0-1</span><br/><span class="hl-1">};</span>
 </code><button>Copy</button></pre>
-<pre><code><span class="hl-5">// Using gaussian distribution, return a whole number between 1 and the maximum safe integer value.</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-4">wholeNumber</span><span class="hl-1"> = () </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">max</span><span class="hl-1"> = </span><span class="hl-0">Number</span><span class="hl-1">.MAX_SAFE_INTEGER;</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> { </span><span class="hl-3">scale</span><span class="hl-1">, </span><span class="hl-3">round</span><span class="hl-1"> } = </span><span class="hl-0">Roll</span><span class="hl-1">;</span><br/><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">gaussian</span><span class="hl-1">(), [</span><span class="hl-6">0</span><span class="hl-1">, </span><span class="hl-6">1</span><span class="hl-1">], [</span><span class="hl-6">0</span><span class="hl-1">, </span><span class="hl-0">max</span><span class="hl-1">]);</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">whole</span><span class="hl-1"> = </span><span class="hl-4">round</span><span class="hl-1">(</span><span class="hl-0">scaled</span><span class="hl-1">, </span><span class="hl-6">0</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-7">return</span><span class="hl-1"> </span><span class="hl-0">whole</span><span class="hl-1">;</span><br/><span class="hl-1">}</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">wholeNumber</span><span class="hl-1">())</span>
+<a id="md:note-while-each-instance-of-roll-will-allow-using-both-normal-and-gaussian-distribution-you-should-use-different-instances-if-you-need-to-track-the-distribution-over-time" class="tsd-anchor"></a><h4><a href="#md:note-while-each-instance-of-roll-will-allow-using-both-normal-and-gaussian-distribution-you-should-use-different-instances-if-you-need-to-track-the-distribution-over-time">Note: While each instance of <code>Roll</code> will allow using both normal and gaussian distribution, you should use different instances if you need to track the distribution over time.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">maxHistory</span><span class="hl-1"> = </span><span class="hl-5">1000</span><span class="hl-1">;</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">uniformRoll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory</span><span class="hl-1"> });</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussianRoll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory</span><span class="hl-1"> });</span><br/><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">i</span><span class="hl-1"> = </span><span class="hl-0">maxHistory</span><span class="hl-1">;</span><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">i</span><span class="hl-1">--) {</span><br/><span class="hl-1">    </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">10</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">31</span><span class="hl-1">, </span><span class="hl-5">0.24</span><span class="hl-1">);</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">uniformStats</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-0">history:</span><span class="hl-1"> </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">mean:</span><span class="hl-1">    </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">median:</span><span class="hl-1">  </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">modes:</span><span class="hl-1">   </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">stdDev:</span><span class="hl-1">  </span><span class="hl-0">uniformRoll</span><span class="hl-1">.</span><span class="hl-4">stdDev</span><span class="hl-1">(),</span><br/><span class="hl-1">};</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussianStats</span><span class="hl-1"> = {</span><br/><span class="hl-1">    </span><span class="hl-0">history:</span><span class="hl-1"> </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">mean:</span><span class="hl-1">    </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">median:</span><span class="hl-1">  </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">modes:</span><span class="hl-1">   </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">(),</span><br/><span class="hl-1">    </span><span class="hl-0">stdDev:</span><span class="hl-1">  </span><span class="hl-0">gaussianRoll</span><span class="hl-1">.</span><span class="hl-4">stdDev</span><span class="hl-1">(),</span><br/><span class="hl-1">};</span>
 </code><button>Copy</button></pre>
-<a id="md:api" class="tsd-anchor"></a><h2><a href="#md:api">API</a></h2><table>
-<tbody align="left">
-    <col width="10%">
-    <col width="40%">
-    <col width="10%">
-    <col width="40%">
-    <tr>
-        <th>Method</th>
-        <th>Parameters</th>
-        <th>Return</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><code>.uniform()</code></td>
-        <td></td>
-        <td><code>{number}</code></td>
-        <td>Generates a 53-bit random real in the interval [0, 1] with uniform distribution.</td>
-    </tr>
-    <tr>
-        <td><code>.random()</code></td>
-        <td></td>
-        <td><code>{number}</code></td>
-        <td>Convenience function. Alias for <code>.uniform()</code>.</td>
-    </tr>
-    <tr>
-        <td><code>.gaussian(skew)</code></td>
-        <td>
-            <ul>
-                <li><code>skew?</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            In the range [-1, 1]. Negative values skew data RIGHT, positive values skew data LEFT. Default <code>0</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Generates a 53-bit random real in the interval [0, 1] with gaussian distribution.
-        </td>
-    </tr>
-    <tr>
-        <td><code>.d(sides, skew)</code></td>
-        <td>
-             <ul>
-                <li><code>sides</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The number of sides the die should represent. Allows but ignores decimals.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-            <ul>
-                <li><code>skew?</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            In the range [-1,1]. If `skew` is a number,`roll.d` will use gaussian distribution instead of normal distribution. Pass `0` to use gaussian distribution without skew.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Simulates a die-rolling metaphor. Generates a 53-bit random real in the interval [0, 1] with uniform or gaussian distribution, then scales it to a range [1, n] where n is the number of sides, then rounds to whole number.</td>
-    </tr>
-    <tr>
-        <td><code>.seed(seed)</code></td>
-        <td>
-            <ul>
-                <li><code>seed?</code>
-                    <ul>
-                        <li>
-                            <code>{number|number[]}</code>
-                        </li>
-                        <li>
-                            Unsigned 32-bit integer (<code>number</code>) or <code>number[]</code> of arbitrary size/values.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number|number[]}</code> - The current seed.
-        </td>
-        <td>Set or get the seed. Automatically clears history.</td>
-    </tr>
-    <tr>
-        <td><code>.history()</code></td>
-        <td></td>
-        <td>
-            <code>{number[]}</code> - The current history.
-        </td>
-        <td>Retrieve a copy of the internal <code>history</code> with no references.</td>
-    </tr>
-    <tr>
-        <td><code>.maxHistory(size)</code></td>
-        <td>
-            <ul>
-                <li><code>size?</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The maximum history size. Default <code>1000</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number}</code> - The current <code>maxHistory</code>
-        </td>
-        <td>Set or get the maximum history size.</td>
-    </tr>
-    <tr>
-        <td><code>.clearHistory()</code></td>
-        <td></td>
-        <td></td>
-        <td>Reset the internal <code>history</code>. Retains the current <code>maxHistory</code>.</td>
-    </tr>
-    <tr>
-        <td><code>.mean(arr)</code></td>
-        <td>
-            <ul>
-                <li><code>arr?</code>
-                    <ul>
-                        <li>
-                            <code>{number[]}</code>
-                        </li>
-                        <li>
-                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Calculate the statistical mean of a <code>number[]</code> or the current <code>history</code>.</td>
-    </tr>
-    <tr>
-        <td><code>.median(arr)</code></td>
-        <td>
-            <ul>
-                <li><code>arr?</code>
-                    <ul>
-                        <li>
-                            <code>{number[]}</code>
-                        </li>
-                        <li>
-                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number}</code>
-        </td>
-        <td>
-            Calculate the statistical median of a <code>number[]</code> or the current <code>history</code>.
-        </td>
-    </tr>
-    <tr>
-        <td><code>.modes(arr)</code></td>
-        <td>
-            <ul>
-                <li><code>arr?</code>
-                    <ul>
-                        <li>
-                            <code>{number[]}</code>
-                        </li>
-                        <li>
-                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number[]}</code>
-        </td>
-        <td>
-            Calculate the statistical modes of a <code>number[]</code> or the current <code>history</code>.
-        </td>
-    </tr>
-    <tr>
-        <td><code>.standardDeviation(arr)</code></td>
-        <td>
-            <ul>
-                <li><code>arr?</code>
-                    <ul>
-                        <li>
-                            <code>{number[]}</code>
-                        </li>
-                        <li>
-                            Target array on which to operate. Defaults to the current <code>history</code> if <code>!arr</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number}</code> - Standard deviation is normalized [0, 1].
-        </td>
-        <td>
-            Calculate the standard deviation of a <code>number[]</code> or the current <code>history</code>.
-        </td>
-    </tr>
-</tbody>
-</table>
-
-<a id="md:static-methods" class="tsd-anchor"></a><h3><a href="#md:static-methods">Static Methods</a></h3><table>
-<tbody align="left">
-    <tr>
-        <th>Method</th>
-        <th>Parameters</th>
-        <th>Return</th>
-        <th>Description</th>
-    </tr>
-    <tr>
-        <td><code>Roll.random()</code></td>
-        <td></td>
-        <td><code>{number}</code></td>
-        <td>Convenience function to generate a randomly seeded random number normalized [0, 1].</td>
-    </tr>
-    <tr>
-        <td><code>Roll.d(sides)</code></td>
-        <td>
-            <ul>
-                <li><code>sides</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The desired number of sides to simulate.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td>
-            <code>{number}</code>
-        </td>
-        <td>
-            Convenience function to generate a randomly seeded random number in the range [1, sides].
-        </td>
-    </tr>
-    <tr>
-        <td><code>Roll.createRandomSeed()</code></td>
-        <td></td>
-        <td>
-            <code>{number[]}</code> - Randomly generated array of random size <code>(size > 20 < 623)</code>.
-        </td>
-        <td>Generate an array of random size and contents to use as a seed.</td>
-    </tr>
-    <tr>
-        <td><code>Roll.scale(value, r1, r2)</code></td>
-        <td>
-            <ul>
-                <li><code>value</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The initial value.
-                        </li>
-                    </ul>
-                </li>
-                <li><code>r1</code>
-                    <ul>
-                        <li>
-                            <code>{[number, number]}</code>
-                        </li>
-                        <li>
-                            The initial range [min, max].
-                        </li>
-                    </ul>
-                </li>
-                <li><code>r2</code>
-                    <ul>
-                        <li>
-                            <code>{[number, number]}</code>
-                        </li>
-                        <li>
-                            The target range [min, max].
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Scale a value from a known range to a new range.</td>
-    </tr>
-    <tr>
-        <td><code>Roll.clip(value, range)</code></td>
-        <td>
-            <ul>
-                <li><code>value</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The initial value.
-                        </li>
-                    </ul>
-                </li>
-                <li><code>range</code>
-                    <ul>
-                        <li>
-                            <code>{[number, number]}</code>
-                        </li>
-                        <li>
-                            Array containing the minimum and maximum possible values.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Limit a value to a hard minimum and maximum.</td>
-    </tr>
-    <tr>
-        <td><code>Roll.round(value, places)</code></td>
-        <td>
-            <ul>
-                <li><code>value</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The initial value.
-                        </li>
-                    </ul>
-                </li>
-                <li><code>places?</code>
-                    <ul>
-                        <li>
-                            <code>{number}</code>
-                        </li>
-                        <li>
-                            The desired number of decimal places. Passing <code>0</code> results in a whole number. Default <code>0</code>.
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </td>
-        <td><code>{number}</code></td>
-        <td>Round a value to a specific number of places. Decimal values < 5 (for any given place) are rounded down.</td>
-    </tr>
-</tbody>
-</table></div></div>
+<a id="md:set-the-max-history-in-the-constructor-or-with-the-instance-method" class="tsd-anchor"></a><h4><a href="#md:set-the-max-history-in-the-constructor-or-with-the-instance-method">Set the max history in the constructor or with the instance method.</a></h4><pre><code><span class="hl-7">/* set the initial `maxHistory` to `99`, default is `maxHistory === Infinity` */</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-5">99</span><span class="hl-1"> });</span><br/><br/><span class="hl-7">/* returns the current `maxHistory` if no param is given */</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">maxHistory</span><span class="hl-1">()); </span><span class="hl-7">// `maxHistory === 99`</span><br/><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">maxHistory</span><span class="hl-1">(</span><span class="hl-5">10</span><span class="hl-1">);            </span><span class="hl-7">// set instance `maxHistory` to `10`</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">maxHistory</span><span class="hl-1">()); </span><span class="hl-7">// `maxHistory === 10`</span>
+</code><button>Copy</button></pre>
+<a id="md:giving-roll-a-max-history-will-allow-you-to-calculate-rolling-statistics" class="tsd-anchor"></a><h4><a href="#md:giving-roll-a-max-history-will-allow-you-to-calculate-rolling-statistics">Giving <code>Roll</code> a max history will allow you to calculate rolling statistics.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-5">10</span><span class="hl-1"> });</span><br/><br/><span class="hl-4">setInterval</span><span class="hl-1">(() </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">6</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">avg</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">();</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">history</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">();</span><br/><span class="hl-1">    </span><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-0">rand</span><span class="hl-1">, </span><span class="hl-0">avg</span><span class="hl-1">, </span><span class="hl-0">history</span><span class="hl-1">);</span><br/><span class="hl-1">}, </span><span class="hl-5">1000</span><span class="hl-1">);</span>
+</code><button>Copy</button></pre>
+<a id="md:round-to-n-decimal-places-using-the-static-method-rollround" class="tsd-anchor"></a><h4><a href="#md:round-to-n-decimal-places-using-the-static-method-rollround">Round to <code>n</code> decimal places using the static method <code>Roll.round()</code>.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-5">2</span><span class="hl-1">;</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rounded</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">round</span><span class="hl-1">(</span><span class="hl-0">rand</span><span class="hl-1">, </span><span class="hl-0">n</span><span class="hl-1">);</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">whole</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">round</span><span class="hl-1">(</span><span class="hl-0">rand</span><span class="hl-1"> * </span><span class="hl-5">100</span><span class="hl-1">, </span><span class="hl-5">0</span><span class="hl-1">)</span><br/><br/><span class="hl-7">// Roll.round(0.75, 0) === 1</span><br/><span class="hl-7">// Roll.round(0.5, 0) === 1</span><br/><span class="hl-7">// Roll.round(0.49, 0) === 0</span><br/><span class="hl-7">// Roll.round(0.75, 1) === 0.8</span><br/><span class="hl-7">// Roll.round(0.424242, 3) === 0.424</span>
+</code><button>Copy</button></pre>
+<a id="md:numbers-can-be-scaled-from-any-known-range-to-another-using-the-static-method-rollscale" class="tsd-anchor"></a><h4><a href="#md:numbers-can-be-scaled-from-any-known-range-to-another-using-the-static-method-rollscale">Numbers can be scaled from any known range to another using the static method <code>Roll.scale()</code>.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">r1</span><span class="hl-1"> = [</span><span class="hl-5">0</span><span class="hl-1">, </span><span class="hl-5">1</span><span class="hl-1">];  </span><span class="hl-7">// initial range</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">r2</span><span class="hl-1"> = [</span><span class="hl-5">5</span><span class="hl-1">, </span><span class="hl-5">72</span><span class="hl-1">]; </span><span class="hl-7">// target range</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">n</span><span class="hl-1">, </span><span class="hl-0">r1</span><span class="hl-1">, </span><span class="hl-0">r2</span><span class="hl-1">); </span><span class="hl-7">// if `n === 0.5` then `scaled === 33.5`</span><br/><br/><span class="hl-7">// Roll.scale(0.5, [0, 1], [-1, 1]) === 0</span><br/><span class="hl-7">// Roll.scale(0.75, [0, 1], [0, 2]) === 1.5</span><br/><span class="hl-7">// Roll.scale(55, [2.3, 98.6], [33.42, 87.55]) === 63.04254413291797</span><br/><span class="hl-7">// Roll.scale(12975.2123, [0, 9001], [0, 1]) === 1.4415300855460504</span>
+</code><button>Copy</button></pre>
+<a id="md:numbers-can-be-clipped-to-a-minimum-and-maximum-allowed-value-using-the-static-method-rollclip" class="tsd-anchor"></a><h4><a href="#md:numbers-can-be-clipped-to-a-minimum-and-maximum-allowed-value-using-the-static-method-rollclip">Numbers can be clipped to a minimum and maximum allowed value using the static method <code>Roll.clip()</code>.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">();</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">min</span><span class="hl-1"> = </span><span class="hl-5">0.2</span><span class="hl-1">;</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">max</span><span class="hl-1"> = </span><span class="hl-5">0.8</span><span class="hl-1">;</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">clipped</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">clip</span><span class="hl-1">(</span><span class="hl-0">n</span><span class="hl-1">, [</span><span class="hl-0">min</span><span class="hl-1">, </span><span class="hl-0">max</span><span class="hl-1">]);</span><br/><br/><span class="hl-7">// Roll.clip(1, [0, 0.5]) === 0.5</span><br/><span class="hl-7">// Roll.clip(-1, [1.5, 10]) === 1.5</span><br/><span class="hl-7">// Roll.clip(0.5, [0, 1]) === 0.5</span>
+</code><button>Copy</button></pre>
+<a id="md:generate-a-whole-number-between-1-and-max_safe_integer-using-gaussian-distribution" class="tsd-anchor"></a><h4><a href="#md:generate-a-whole-number-between-1-and-max_safe_integer-using-gaussian-distribution">Generate a whole number between 1 and MAX_SAFE_INTEGER using gaussian distribution.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-4">getGaussianWhole</span><span class="hl-1"> = () </span><span class="hl-2">=&gt;</span><span class="hl-1"> {</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">(</span><span class="hl-5">0</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">n</span><span class="hl-1">, [</span><span class="hl-5">0</span><span class="hl-1">, </span><span class="hl-5">1</span><span class="hl-1">], [</span><span class="hl-5">1</span><span class="hl-1">, </span><span class="hl-0">Number</span><span class="hl-1">.MAX_SAFE_INTEGER]);</span><br/><span class="hl-1">    </span><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">whole</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">round</span><span class="hl-1">(</span><span class="hl-0">scaled</span><span class="hl-1">, </span><span class="hl-5">0</span><span class="hl-1">);</span><br/><span class="hl-1">    </span><span class="hl-6">return</span><span class="hl-1"> </span><span class="hl-0">whole</span><span class="hl-1">;</span><br/><span class="hl-1">}</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-4">getGaussianWhole</span><span class="hl-1">())</span>
+</code><button>Copy</button></pre>
+<a id="md:generate-and-set-a-new-random-seed-with-the-static-method-rollcreaterandomseed-and-instance-method-rollseed" class="tsd-anchor"></a><h4><a href="#md:generate-and-set-a-new-random-seed-with-the-static-method-rollcreaterandomseed-and-instance-method-rollseed">Generate and set a new random seed with the static method <code>Roll.createRandomSeed()</code> and instance method <code>roll.seed()</code>.</a></h4><pre><code><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">();</span><br/><br/><span class="hl-7">/* returns the current `seed` if no param is given */</span><br/><span class="hl-0">console</span><span class="hl-1">.</span><span class="hl-4">log</span><span class="hl-1">(</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">seed</span><span class="hl-1">());</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">newSeed</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">createRandomSeed</span><span class="hl-1">();</span><br/><br/><span class="hl-7">/* set the seed for the given instance (this will clear the history) */</span><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">seed</span><span class="hl-1">(</span><span class="hl-0">newSeed</span><span class="hl-1">);</span>
+</code><button>Copy</button></pre>
+<a id="md:api---instance-methods" class="tsd-anchor"></a><h2><a href="#md:api---instance-methods">API - Instance Methods</a></h2><pre><code><span class="hl-7">/**</span><br/><span class="hl-7"> * Allowed seed types. </span><br/><span class="hl-7"> * A `number`, `number[]`, `Uint32Array`, or `undefined` representing a seed value.</span><br/><span class="hl-7"> * </span><span class="hl-2">@typedef</span><span class="hl-7"> </span><span class="hl-8">{( number | number[] | Uint32Array | undefined )}</span><span class="hl-7"> </span><span class="hl-8">Seed</span><br/><span class="hl-7"> */</span><br/><span class="hl-1"> </span><span class="hl-2">type</span><span class="hl-1"> </span><span class="hl-8">Seed</span><span class="hl-1"> = </span><span class="hl-8">number</span><span class="hl-1"> | </span><span class="hl-8">number</span><span class="hl-1">[] | </span><span class="hl-8">Uint32Array</span><span class="hl-1"> | </span><span class="hl-8">undefined</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Generates a 53-bit random real in the interval [0, 1] with uniform distribution.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-1"> </span><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">uniform</span><span class="hl-1">: () </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Generates a 53-bit random real in the interval [0, 1] with gaussian distribution.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[skew</span><span class="hl-1">=</span><span class="hl-0">0]</span><span class="hl-7"> - In the range [-1,1]. Negative values skew data RIGHT, </span><br/><span class="hl-7"> * and positive values skew data LEFT. </span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">gaussian</span><span class="hl-1">: (</span><span class="hl-0">skew</span><span class="hl-1">: </span><span class="hl-8">number</span><span class="hl-1"> = </span><span class="hl-5">0</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Convenience function. Same as `.gaussian` if `skew` is a `number`, same as </span><br/><span class="hl-7"> * `.uniform` if `skew` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[skew]</span><span class="hl-7"> - In the range [-1, 1]. Negative values skew data RIGHT, </span><br/><span class="hl-7"> * positive values skew data LEFT.</span><br/><span class="hl-7"> * </span><span class="hl-2">@note</span><span class="hl-7"> Pass `0` to use gaussian distribution without skew.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">random</span><span class="hl-1">: (</span><span class="hl-0">skew</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Simulates a die-rolling metaphor. First generates a 53-bit random real in the </span><br/><span class="hl-7"> * interval [0, 1] with uniform or gaussian distribution, then scales it to a range </span><br/><span class="hl-7"> * `[1, n]` where `n` is the number of sides, then rounds to whole number.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">sides</span><span class="hl-7"> - The number of sides the die should represent. </span><br/><span class="hl-7"> * Allows but ignores decimal places.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[skew]</span><span class="hl-7"> - In the range [-1, 1]. Negative values skew data RIGHT, </span><br/><span class="hl-7"> * positive values skew data LEFT.</span><br/><span class="hl-7"> * </span><span class="hl-2">@note</span><span class="hl-7"> Pass `0` to use gaussian distribution without skew.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">d</span><span class="hl-1">: (</span><span class="hl-0">sides</span><span class="hl-1">: </span><span class="hl-8">number</span><span class="hl-1">, </span><span class="hl-0">skew</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Set the seed or get the current seed if no param is given. Automatically </span><br/><span class="hl-7"> * clears `history` when setting a new seed.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{Seed}</span><span class="hl-7"> </span><span class="hl-0">[seed]</span><span class="hl-7"> - Unsigned 32-bit integer or number array of arbitrary size/values.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{Seed}</span><span class="hl-7"> Returns the current seed.</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">seed</span><span class="hl-1">: (</span><span class="hl-0">seed</span><span class="hl-1">?: </span><span class="hl-8">Seed</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">Seed</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Retrieve a copy of the internal history array with no references.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> Returns the current `history`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">history</span><span class="hl-1">: () </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><span class="hl-1">[]</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Set the maximum `history` size or get the current size if no param is given. </span><br/><span class="hl-7"> * Default on instance creation is `Infinity`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[size]</span><span class="hl-7"> - The desired maximum history size.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> Returns the current `maxHistory`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">maxHistory</span><span class="hl-1">: (</span><span class="hl-0">size</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Reset the internal `history` array. Does not change current `maxHistory`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">clearHistory</span><span class="hl-1">: () </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">void</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Calculate the statistical mean of a given `number[]` or the current `history`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> </span><span class="hl-0">[arr]</span><span class="hl-7"> - Target array on which to operate. </span><br/><span class="hl-7"> * Defaults to the current `history` if `arr` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">mean</span><span class="hl-1">: (</span><span class="hl-0">arr</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">[]) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Calculate the statistical median of a given `number[]` or the current `history`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> </span><span class="hl-0">[arr]</span><span class="hl-7"> -  Target array on which to operate. </span><br/><span class="hl-7"> * Defaults to the current `history` if `arr` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">median</span><span class="hl-1">: (</span><span class="hl-0">arr</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">[]) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Calculate the statistical modes of a given `number[]` or the current `history`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> </span><span class="hl-0">[arr]</span><span class="hl-7"> - Target array on which to operate. </span><br/><span class="hl-7"> * Defaults to the current `history` if `arr` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">modes</span><span class="hl-1">: (</span><span class="hl-0">arr</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">[]) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span><span class="hl-1">[]</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Calculate the standard deviation of a given `number[]` or the current `history`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> </span><span class="hl-0">[arr]</span><span class="hl-7"> - Target array on which to operate. </span><br/><span class="hl-7"> * Defaults to the current `history` if `arr` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> Standard deviation normalized [0, 1].</span><br/><span class="hl-7"> * </span><span class="hl-2">@readonly</span><br/><span class="hl-7"> */</span><br/><span class="hl-2">readonly</span><span class="hl-1"> </span><span class="hl-8">stdDev</span><span class="hl-1">: (</span><span class="hl-0">arr</span><span class="hl-1">?: </span><span class="hl-8">number</span><span class="hl-1">[]) </span><span class="hl-2">=&gt;</span><span class="hl-1"> </span><span class="hl-8">number</span>
+</code><button>Copy</button></pre>
+<a id="md:api---static-methods" class="tsd-anchor"></a><h2><a href="#md:api---static-methods">API - Static Methods</a></h2><pre><code><span class="hl-7">/**</span><br/><span class="hl-7"> * Convenience function. Same as `.gaussian` if `skew` is a `number`, </span><br/><span class="hl-7"> * same as `.uniform` if `skew` is `undefined`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[skew]</span><span class="hl-7"> - In the range [-1, 1]. Negative values skew data RIGHT, </span><br/><span class="hl-7"> * positive values skew data LEFT.</span><br/><span class="hl-7"> * </span><span class="hl-2">@note</span><span class="hl-7"> Pass `0` to use gaussian distribution without skew.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">random</span><span class="hl-1">(</span><span class="hl-0">skew</span><span class="hl-1">?: </span><span class="hl-0">number</span><span class="hl-1">): </span><span class="hl-0">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Convenience function to generate a randomly seeded random number</span><br/><span class="hl-7"> * in the range 1-sides.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">sides</span><span class="hl-7"> - The desired number of sides to simulate.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[skew]</span><span class="hl-7"> - In the range [-1,1]. If `skew` is a number,</span><br/><span class="hl-7"> * `Roll.d` will use gaussian distribution instead of normal distribution.</span><br/><span class="hl-7"> * </span><span class="hl-2">@note</span><span class="hl-7"> Pass `0` to use gaussian distribution without skew.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-0">sides</span><span class="hl-1">: </span><span class="hl-0">number</span><span class="hl-1">, </span><span class="hl-0">skew</span><span class="hl-1">?: </span><span class="hl-0">number</span><span class="hl-1">): </span><span class="hl-0">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Generate a random seed array using `window.crypto`. Falls back to `node.crypto` </span><br/><span class="hl-7"> * or a final fallback to using `Math.random()` to fill an array.</span><br/><span class="hl-7"> * </span><span class="hl-2">@return</span><span class="hl-7"> </span><span class="hl-8">{number[]}</span><span class="hl-7"> Randomly generated `number[]` of random size [20,623] and values.</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">createRandomSeed</span><span class="hl-1">(): </span><span class="hl-0">number</span><span class="hl-1">[]</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Scale a value from a known range to a new range.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">value</span><span class="hl-7"> - The initial value.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{[number, number]}</span><span class="hl-7"> </span><span class="hl-0">r1</span><span class="hl-7"> - The initial range [min, max].</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{[number, number]}</span><span class="hl-7"> </span><span class="hl-0">[r2]</span><span class="hl-7"> - The target range [min, max].</span><br/><span class="hl-7"> * </span><span class="hl-2">@note</span><span class="hl-7"> Shorthand: If `r1` is not `[0, 1]` and `r2` is `undefined`,</span><br/><span class="hl-7"> * the actual `r1` is assumed to be `[0, 1]` and the actual `r2`</span><br/><span class="hl-7"> * is assumed to be the given `r1`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> * </span><span class="hl-2">@example</span><br/><span class="hl-7"> * const n = 50</span><br/><span class="hl-7"> * const scaled = Roll.scale(n, [0, 100], [0, 1]) // scaled === 0.5</span><br/><span class="hl-7"> * </span><span class="hl-2">@example</span><br/><span class="hl-7"> * // we can use the shorthand when we know the input value is in the range [0, 1]</span><br/><span class="hl-7"> * const n = Roll.random()</span><br/><span class="hl-7"> * const scaled = Roll.scale(n, [0, 10]) // scaled === 5</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">scale</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-0">value</span><span class="hl-1">: </span><span class="hl-0">number</span><span class="hl-1">,</span><br/><span class="hl-1">    </span><span class="hl-0">r1</span><span class="hl-1">: [</span><span class="hl-0">number</span><span class="hl-1">, </span><span class="hl-0">number</span><span class="hl-1">],</span><br/><span class="hl-1">    </span><span class="hl-0">r2</span><span class="hl-1">: [</span><span class="hl-0">number</span><span class="hl-1">, </span><span class="hl-0">number</span><span class="hl-1">],</span><br/><span class="hl-1">): </span><span class="hl-0">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Limit a value to a hard minimum and maximum.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">value</span><span class="hl-7"> - The initial value.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{[number, number]}</span><span class="hl-7"> </span><span class="hl-0">range</span><span class="hl-7"> - Two-element array containing </span><br/><span class="hl-7"> * the minimum and maximum possible values.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">clip</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-0">value</span><span class="hl-1">: </span><span class="hl-0">number</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-0">range</span><span class="hl-1">: [</span><span class="hl-0">number</span><span class="hl-1">, </span><span class="hl-0">number</span><span class="hl-1">],</span><br/><span class="hl-1">): </span><span class="hl-0">number</span><br/><br/><span class="hl-7">/**</span><br/><span class="hl-7"> * Round a value to a specific number of places. </span><br/><span class="hl-7"> * Decimal values &lt; 5 (for any given place) are rounded down.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">value</span><span class="hl-7"> - The initial value.</span><br/><span class="hl-7"> * </span><span class="hl-2">@param</span><span class="hl-7"> </span><span class="hl-8">{number}</span><span class="hl-7"> </span><span class="hl-0">[places</span><span class="hl-1">=</span><span class="hl-0">0]</span><span class="hl-7"> - The desired number of decimal places.</span><br/><span class="hl-7"> * `0` results in a whole number. Default is `places=0`.</span><br/><span class="hl-7"> * </span><span class="hl-2">@returns</span><span class="hl-7"> </span><span class="hl-8">{number}</span><br/><span class="hl-7"> * </span><span class="hl-2">@static</span><br/><span class="hl-7"> */</span><br/><span class="hl-0">static</span><span class="hl-1"> </span><span class="hl-4">round</span><span class="hl-1">(</span><br/><span class="hl-1">    </span><span class="hl-0">value</span><span class="hl-1">: </span><span class="hl-0">number</span><span class="hl-1">, </span><br/><span class="hl-1">    </span><span class="hl-0">places</span><span class="hl-1">: </span><span class="hl-0">number</span><br/><span class="hl-1">): </span><span class="hl-0">number</span>
+</code><button>Copy</button></pre>
+</div></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -423,13 +85,28 @@
 <li><a href="#md:justkdroll"><span>@justkd/roll</span></a></li>
 <li>
 <ul>
+<li><a href="#md:notes-and-todo"><span>Notes and <wbr/>Todo</span></a></li>
 <li><a href="#md:install"><span>Install</span></a></li>
-<li><a href="#md:basic-use"><span>Basic <wbr/>Use</span></a></li>
+<li><a href="#md:basic-use---static-methods"><span>Basic <wbr/>Use -<wbr/> <wbr/>Static <wbr/>Methods</span></a></li>
+<li><a href="#md:basic-use---instance-methods"><span>Basic <wbr/>Use -<wbr/> <wbr/>Instance <wbr/>Methods</span></a></li>
 <li><a href="#md:extended-use"><span>Extended <wbr/>Use</span></a></li>
-<li><a href="#md:api"><span>API</span></a></li>
 <li>
 <ul>
-<li><a href="#md:static-methods"><span>Static <wbr/>Methods</span></a></li></ul></li></ul></li></ul></li></ul></div></details></div>
+<li><a href="#md:roll-can-use-either-uniform-normal-or-gaussian-distribution"><span>Roll can use either uniform (normal) or gaussian distribution.</span></a></li>
+<li>
+<ul>
+<li><a href="#md:roll-can-use-either-uniform-normal-or-gaussian-distribution-part-ii"><span>Roll can use either uniform (normal) or gaussian distribution (part II).</span></a></li>
+<li><a href="#md:each-instance-of-roll-can-be-given-a-maxhistory"><span>Each instance of <wbr/>Roll can be given a max<wbr/>History.</span></a></li>
+<li><a href="#md:note-while-each-instance-of-roll-will-allow-using-both-normal-and-gaussian-distribution-you-should-use-different-instances-if-you-need-to-track-the-distribution-over-time"><span>Note: <wbr/>While each instance of <wbr/>Roll will allow using both normal and gaussian distribution, you should use different instances if you need to track the distribution over time.</span></a></li>
+<li><a href="#md:set-the-max-history-in-the-constructor-or-with-the-instance-method"><span>Set the max history in the constructor or with the instance method.</span></a></li>
+<li><a href="#md:giving-roll-a-max-history-will-allow-you-to-calculate-rolling-statistics"><span>Giving <wbr/>Roll a max history will allow you to calculate rolling statistics.</span></a></li>
+<li><a href="#md:round-to-n-decimal-places-using-the-static-method-rollround"><span>Round to n decimal places using the static method <wbr/>Roll.round().</span></a></li>
+<li><a href="#md:numbers-can-be-scaled-from-any-known-range-to-another-using-the-static-method-rollscale"><span>Numbers can be scaled from any known range to another using the static method <wbr/>Roll.scale().</span></a></li>
+<li><a href="#md:numbers-can-be-clipped-to-a-minimum-and-maximum-allowed-value-using-the-static-method-rollclip"><span>Numbers can be clipped to a minimum and maximum allowed value using the static method <wbr/>Roll.clip().</span></a></li>
+<li><a href="#md:generate-a-whole-number-between-1-and-max_safe_integer-using-gaussian-distribution"><span>Generate a whole number between 1 and MAX_<wbr/>SAFE_<wbr/>INTEGER using gaussian distribution.</span></a></li>
+<li><a href="#md:generate-and-set-a-new-random-seed-with-the-static-method-rollcreaterandomseed-and-instance-method-rollseed"><span>Generate and set a new random seed with the static method <wbr/>Roll.create<wbr/>Random<wbr/>Seed() and instance method roll.seed().</span></a></li></ul></li></ul></li>
+<li><a href="#md:api---instance-methods"><span>API -<wbr/> <wbr/>Instance <wbr/>Methods</span></a></li>
+<li><a href="#md:api---static-methods"><span>API -<wbr/> <wbr/>Static <wbr/>Methods</span></a></li></ul></li></ul></li></ul></div></details></div>
 <div class="site-menu">
 <nav class="tsd-navigation"><a href="modules.html" class="current"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><g id="icon-4"><rect fill="var(--color-icon-background)" stroke="var(--color-ts-namespace)" stroke-width="1.5" x="1" y="1" width="22" height="22" rx="6"></rect><path d="M9.33 16V7.24H10.77L13.446 14.74C13.43 14.54 13.41 14.296 13.386 14.008C13.37 13.712 13.354 13.404 13.338 13.084C13.33 12.756 13.326 12.448 13.326 12.16V7.24H14.37V16H12.93L10.266 8.5C10.282 8.692 10.298 8.936 10.314 9.232C10.33 9.52 10.342 9.828 10.35 10.156C10.366 10.476 10.374 10.784 10.374 11.08V16H9.33Z" fill="var(--color-text)"></path></g></svg><span>@justkd/roll</span></a>
 <ul class="tsd-small-nested-navigation">

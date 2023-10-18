@@ -27,6 +27,16 @@ export declare class History extends Array {
      */
     push: (...items: any[]) => number;
     /**
+     * Returns an array of the last items removed due to overflow when pushing.
+     * @note This value changes every time `.push` is successful.
+     * @returns {any[]}
+     */
+    lastRemoved: () => any[];
+    /**
+     * Empties the `History` array. Returns itself.
+     */
+    clear: () => History;
+    /**
      * Class extending `Array` with max size and automatic overflow handling.
      * @extends
      */

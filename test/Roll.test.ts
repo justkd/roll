@@ -1,6 +1,6 @@
 /**
  * @file Roll.test.ts
- * @version 2.0.0
+ * @version 2.1.0
  * @author Cadence Holmes
  * @copyright Cadence Holmes 2023
  * @license MIT
@@ -603,6 +603,12 @@ describe(`Roll`, () => {
           targetRange: [33.42, 87.55],
           expected: 63.04254413291797,
         },
+        {
+          value: 0.5,
+          initialRange: [0, 1],
+          targetRange: [5, 72],
+          expected: 38.5,
+        },
       ];
 
       tests.forEach((test) => {
@@ -748,7 +754,7 @@ describe(`Roll`, () => {
           expect(roll.mean(arr)).to.equal(expectedMean);
           expect(roll.median(arr)).to.equal(expectedMedian);
           expect(roll.modes(arr)).to.deep.equal(expectedModes);
-          expect(roll.standardDeviation(arr)).to.equal(expectedStd);
+          expect(roll.stdDev(arr)).to.equal(expectedStd);
         });
       });
     });
@@ -764,7 +770,7 @@ describe(`Roll`, () => {
       const mean = roll.mean();
       const median = roll.median();
       const modes = roll.modes();
-      const stdv = roll.standardDeviation();
+      const stdv = roll.stdDev();
       expect(mean).to.be.a("number");
       expect(median).to.be.a("number");
       expect(modes).to.be.instanceOf(Array);
@@ -825,7 +831,7 @@ describe(`Roll`, () => {
         expect(median).to.be.at.least(expected.medianRange[0]);
         expect(median).to.be.at.most(expected.medianRange[1]);
 
-        const stdv = roll.standardDeviation();
+        const stdv = roll.stdDev();
         expect(stdv).to.be.at.least(expected.stdvRange[0]);
         expect(stdv).to.be.at.most(expected.stdvRange[1]);
       }
@@ -899,7 +905,7 @@ describe(`Roll`, () => {
           expect(median).to.be.at.least(expectedRanges.median[0]);
           expect(median).to.be.at.most(expectedRanges.median[1]);
 
-          const stdv = roll.standardDeviation();
+          const stdv = roll.stdDev();
           expect(stdv).to.be.at.least(expectedRanges.stdv[0]);
           expect(stdv).to.be.at.most(expectedRanges.stdv[1]);
         }

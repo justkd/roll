@@ -22,16 +22,16 @@ distribution, n-sided die rolling, history of variable max size, elementary
 statistics, and scale/clip/round convenience functions.</p>
 </div>
 <div class="tsd-comment tsd-typography">
-<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">save</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">20</span><span class="hl-1">)</span>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">rand</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">save</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">20</span><span class="hl-1">)</span>
 </code><button>Copy</button></pre>
 
-<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-6">100</span><br/><br/><span class="hl-7">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">20</span><span class="hl-1">)</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">uniformResults</span><span class="hl-1"> = [...</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">()]</span><br/><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">clearHistory</span><span class="hl-1">()</span><br/><br/><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-6">100</span><br/><span class="hl-7">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">20</span><span class="hl-1">, </span><span class="hl-6">0</span><span class="hl-1">)</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussianResults</span><span class="hl-1"> = [...</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">()]</span>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-5">100</span><br/><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">20</span><span class="hl-1">)</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">uniformResults</span><span class="hl-1"> = [...</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">()]</span><br/><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">clearHistory</span><span class="hl-1">()</span><br/><br/><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-5">100</span><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">20</span><span class="hl-1">, </span><span class="hl-5">0</span><span class="hl-1">)</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">gaussianResults</span><span class="hl-1"> = [...</span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">history</span><span class="hl-1">()]</span>
 </code><button>Copy</button></pre>
 
-<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-6">100</span><br/><span class="hl-7">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-6">100</span><span class="hl-1">)</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">mean</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">median</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">modes</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">stdDev</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">standardDeviation</span><span class="hl-1">()</span>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">()</span><br/><span class="hl-2">let</span><span class="hl-1"> </span><span class="hl-0">loops</span><span class="hl-1"> = </span><span class="hl-5">100</span><br/><span class="hl-6">while</span><span class="hl-1"> (</span><span class="hl-0">loops</span><span class="hl-1">--) </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">d</span><span class="hl-1">(</span><span class="hl-5">100</span><span class="hl-1">)</span><br/><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">mean</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">mean</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">median</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">median</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">modes</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">modes</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">stdDev</span><span class="hl-1"> = </span><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">standardDeviation</span><span class="hl-1">()</span>
 </code><button>Copy</button></pre>
 
-<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">seed</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">createRandomSeed</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-6">1000</span><span class="hl-1"> })</span><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">seed</span><span class="hl-1">(</span><span class="hl-0">seed</span><span class="hl-1">)</span>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">seed</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">createRandomSeed</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">roll</span><span class="hl-1"> = </span><span class="hl-2">new</span><span class="hl-1"> </span><span class="hl-4">Roll</span><span class="hl-1">({ </span><span class="hl-0">maxHistory:</span><span class="hl-1"> </span><span class="hl-5">1000</span><span class="hl-1"> })</span><br/><span class="hl-0">roll</span><span class="hl-1">.</span><span class="hl-4">seed</span><span class="hl-1">(</span><span class="hl-0">seed</span><span class="hl-1">)</span>
 </code><button>Copy</button></pre>
 </div></section>
 <section class="tsd-panel tsd-hierarchy">
@@ -39,7 +39,7 @@ statistics, and scale/clip/round convenience functions.</p>
 <ul class="tsd-hierarchy">
 <li><span class="target">Roll</span></li></ul></section><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:56</li></ul></aside>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L60">roll/Roll.ts:60</a></li></ul></aside>
 <section class="tsd-panel-group tsd-index-group">
 <section class="tsd-panel tsd-index-panel">
 <details class="tsd-index-content tsd-index-accordion" open><summary class="tsd-accordion-summary tsd-index-summary">
@@ -61,7 +61,7 @@ statistics, and scale/clip/round convenience functions.</p>
 <a href="Roll.html#modes" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>modes</span></a>
 <a href="Roll.html#random" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>random</span></a>
 <a href="Roll.html#seed" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>seed</span></a>
-<a href="Roll.html#standardDeviation" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>standard<wbr/>Deviation</span></a>
+<a href="Roll.html#stdDev" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>std<wbr/>Dev</span></a>
 <a href="Roll.html#uniform" class="tsd-index-link"><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>uniform</span></a>
 </div></section>
 <section class="tsd-index-section">
@@ -100,7 +100,7 @@ distribution, n-sided die rolling, history of variable max size, elementary
 statistics, and scale/clip/round convenience functions.</p>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:177</li></ul></aside></li></ul></section></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L180">roll/Roll.ts:180</a></li></ul></aside></li></ul></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Properties</h2>
 <section class="tsd-panel tsd-member"><a id="clearHistory" class="tsd-anchor"></a>
@@ -113,12 +113,12 @@ statistics, and scale/clip/round convenience functions.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="clearHistory.__type.__type-1"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">void</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Reset <code>history</code> but retain the current <code>maxHistory</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Reset the internal <code>history</code> array. Does not change current <code>maxHistory</code>.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:87</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L90">roll/Roll.ts:90</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="d" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>d</span><a href="#d" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">d</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">sides</span>, <span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -129,30 +129,31 @@ statistics, and scale/clip/round convenience functions.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="d.__type-2.__type-3"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">sides</span>, <span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Simulates a die-rolling metaphor. Generates a 53-bit random real in the
-interval [0,1] with uniform or gaussian distribution, then scales it to a range [1,n]
-where n is the number of sides, then rounds to whole number.</p>
+<div class="tsd-comment tsd-typography"><p>Simulates a die-rolling metaphor. First generates a 53-bit random real in the
+interval [0, 1] with uniform or gaussian distribution, then scales it to a range
+<code>[1, n]</code> where <code>n</code> is the number of sides, then rounds to whole number.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><span class="tsd-kind-parameter">sides</span>: <span class="tsd-signature-type">number</span></h5>
-<div class="tsd-comment tsd-typography"><p>Number of sides to represent. Allows but ignores
-decimals.</p>
+<div class="tsd-comment tsd-typography"><p>The number of sides the die should represent.
+Allows but ignores decimal places.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li>
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">skew</span>: <span class="tsd-signature-type">number</span></h5>
-<div class="tsd-comment tsd-typography"><p>In the range [-1,1]. If <code>skew</code> is a number,
-<code>roll.d</code> will use gaussian distribution instead of normal distribution.
-Pass <code>0</code> to use gaussian distribution without skew.</p>
+<div class="tsd-comment tsd-typography"><p>In the range [-1, 1]. Negative values skew data RIGHT,
+positive values skew data LEFT.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-<div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography">
+<h4>Note</h4><p>Pass <code>0</code> to use gaussian distribution without skew.</p>
+</div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:119</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L120">roll/Roll.ts:120</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="gaussian" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>gaussian</span><a href="#gaussian" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">gaussian</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -163,22 +164,21 @@ Pass <code>0</code> to use gaussian distribution without skew.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="gaussian.__type-4.__type-5"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Generates a 53-bit random real in the interval [0,1] with normal
-distribution.</p>
+<div class="tsd-comment tsd-typography"><p>Generates a 53-bit random real in the interval [0, 1] with gaussian distribution.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">skew</span>: <span class="tsd-signature-type">number</span></h5>
-<div class="tsd-comment tsd-typography"><p>In the range [-1,1]. Negative values skew data
-RIGHT, and positive values skew data LEFT. Default <code>skew=0</code>.</p>
+<div class="tsd-comment tsd-typography"><p>In the range [-1,1]. Negative values skew data RIGHT,
+and positive values skew data LEFT.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:105</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L106">roll/Roll.ts:106</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="history" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>history</span><a href="#history" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">history</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span></div>
@@ -189,13 +189,13 @@ RIGHT, and positive values skew data LEFT. Default <code>skew=0</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="history.__type-6.__type-7"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Return a copy of the internal <code>history</code> object with no references.</p>
+<div class="tsd-comment tsd-typography"><p>Retrieve a copy of the internal history array with no references.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4><p>Returns the current <code>history</code>.</p>
 
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:71</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L75">roll/Roll.ts:75</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="maxHistory" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>max<wbr/>History</span><a href="#maxHistory" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">max<wbr/>History</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">size</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -206,23 +206,22 @@ RIGHT, and positive values skew data LEFT. Default <code>skew=0</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="maxHistory.__type-8.__type-9"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">size</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Get or set the maximum history size.</p>
+<div class="tsd-comment tsd-typography"><p>Set the maximum <code>history</code> size or get the current size if no param is given.
+Default on instance creation is <code>Infinity</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">size</span>: <span class="tsd-signature-type">number</span></h5>
-<div class="tsd-comment tsd-typography"><p>The maximum history size. If <code>size=undefined</code> is
-this function will return the current <code>maxHistory</code>. Default <code>maxHistory</code>
-is <code>Infinity</code>.</p>
+<div class="tsd-comment tsd-typography"><p>The desired maximum history size.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><p>Returns the current <code>maxHistory</code>.</p>
 
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:81</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L84">roll/Roll.ts:84</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="mean" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>mean</span><a href="#mean" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">mean</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -233,21 +232,21 @@ is <code>Infinity</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="mean.__type-10.__type-11"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Calculate the statistical mean of a <code>number[]</code> or the current <code>history()</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Calculate the statistical mean of a given <code>number[]</code> or the current <code>history</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">arr</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-<div class="tsd-comment tsd-typography"><p>The array on which to operate.
-Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Target array on which to operate.
+Defaults to the current <code>history</code> if <code>arr</code> is <code>undefined</code>.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:135</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L140">roll/Roll.ts:140</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="median" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>median</span><a href="#median" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">median</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -258,22 +257,21 @@ Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="median.__type-12.__type-13"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Calculate the statistical median of a <code>number[]</code> or the current
-<code>history()</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Calculate the statistical median of a given <code>number[]</code> or the current <code>history</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">arr</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-<div class="tsd-comment tsd-typography"><p>The array on which to operate.
-Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Target array on which to operate.
+Defaults to the current <code>history</code> if <code>arr</code> is <code>undefined</code>.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:145</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L149">roll/Roll.ts:149</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="modes" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>modes</span><a href="#modes" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">modes</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol">)</span></div>
@@ -284,37 +282,49 @@ Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="modes.__type-14.__type-15"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Calculate the statistical modes of a <code>number[]</code> or the current <code>history()</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Calculate the statistical modes of a given <code>number[]</code> or the current <code>history</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">arr</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-<div class="tsd-comment tsd-typography"><p>The array on which to operate.
-Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Target array on which to operate.
+Defaults to the current <code>history</code> if <code>arr</code> is <code>undefined</code>.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:154</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L158">roll/Roll.ts:158</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="random" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>random</span><a href="#random" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">random</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
+<div class="tsd-signature"><span class="tsd-kind-property">random</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures">
-<li class="tsd-signature" id="random.__type-16.__type-17"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+<li class="tsd-signature" id="random.__type-16.__type-17"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Convenience function. Alias for <code>uniform()</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Convenience function. Same as <code>.gaussian</code> if <code>skew</code> is a <code>number</code>, same as
+<code>.uniform</code> if <code>skew</code> is <code>undefined</code>.</p>
 </div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">skew</span>: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>In the range [-1, 1]. Negative values skew data RIGHT,
+positive values skew data LEFT.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
-<div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
+<div class="tsd-comment tsd-typography">
+<h4>Note</h4><p>Pass <code>0</code> to use gaussian distribution without skew.</p>
+</div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:126</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L131">roll/Roll.ts:131</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="seed" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>seed</span><a href="#seed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">seed</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">seed</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><a href="../types/Seed.html" class="tsd-signature-type tsd-kind-type-alias">Seed</a><span class="tsd-signature-symbol">)</span></div>
@@ -325,49 +335,48 @@ Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="seed.__type-18.__type-19"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">seed</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><a href="../types/Seed.html" class="tsd-signature-type tsd-kind-type-alias">Seed</a></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Re-seed the manager. Automatically clears history.</p>
+<div class="tsd-comment tsd-typography"><p>Set the seed or get the current seed if no param is given. Automatically
+clears <code>history</code> when setting a new seed.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">seed</span>: <a href="../types/Seed.html" class="tsd-signature-type tsd-kind-type-alias">Seed</a></h5>
-<div class="tsd-comment tsd-typography"><p>Unsigned 32-bit integer <code>number</code>, <code>Uint32Array</code>, or
-<code>number[]</code> of arbitrary size/values.</p>
+<div class="tsd-comment tsd-typography"><p>Unsigned 32-bit integer or number array of arbitrary size/values.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <a href="../types/Seed.html" class="tsd-signature-type tsd-kind-type-alias">Seed</a></h4><p>Returns the current seed.</p>
 
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:64</li></ul></aside></section>
-<section class="tsd-panel tsd-member"><a id="standardDeviation" class="tsd-anchor"></a>
-<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>standard<wbr/>Deviation</span><a href="#standardDeviation" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
-<div class="tsd-signature"><span class="tsd-kind-property">standard<wbr/>Deviation</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L68">roll/Roll.ts:68</a></li></ul></aside></section>
+<section class="tsd-panel tsd-member"><a id="stdDev" class="tsd-anchor"></a>
+<h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>std<wbr/>Dev</span><a href="#stdDev" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
+<div class="tsd-signature"><span class="tsd-kind-property">std<wbr/>Dev</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
 <div class="tsd-type-declaration">
 <h4>Type declaration</h4>
 <ul class="tsd-parameters">
 <li class="tsd-parameter-signature">
 <ul class="tsd-signatures">
-<li class="tsd-signature" id="standardDeviation.__type-20.__type-21"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
+<li class="tsd-signature" id="stdDev.__type-20.__type-21"><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">arr</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Calculate the standard deviation of a <code>number[]</code> or the current
-<code>history()</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Calculate the standard deviation of a given <code>number[]</code> or the current <code>history</code>.</p>
 </div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">arr</span>: <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h5>
-<div class="tsd-comment tsd-typography"><p>The array on which to operate. Defaults to
-<code>history()</code> if <code>arr=undefined</code>.</p>
+<div class="tsd-comment tsd-typography"><p>Target array on which to operate.
+Defaults to the current <code>history</code> if <code>arr</code> is <code>undefined</code>.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><p>Standard deviation is normalized [0,1].</p>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4><p>Standard deviation normalized [0, 1].</p>
 
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:164</li></ul></aside></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L167">roll/Roll.ts:167</a></li></ul></aside></section>
 <section class="tsd-panel tsd-member"><a id="uniform" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagReadonly">Readonly</code> <span>uniform</span><a href="#uniform" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <div class="tsd-signature"><span class="tsd-kind-property">uniform</span><span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol"> =&gt; </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">)</span></div>
@@ -378,13 +387,12 @@ Defaults to <code>history()</code> if <code>arr=undefined</code>.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature" id="uniform.__type-22.__type-23"><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span></li>
 <li class="tsd-description">
-<div class="tsd-comment tsd-typography"><p>Generates a 53-bit random real in the interval [0,1] with
-uniform distribution.</p>
+<div class="tsd-comment tsd-typography"><p>Generates a 53-bit random real in the interval [0, 1] with uniform distribution.</p>
 </div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography"></div></li></ul></li></ul></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:95</li></ul></aside></section></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L97">roll/Roll.ts:97</a></li></ul></aside></section></section>
 <section class="tsd-panel-group tsd-member-group">
 <h2>Methods</h2>
 <section class="tsd-panel tsd-member"><a id="clip" class="tsd-anchor"></a>
@@ -392,6 +400,8 @@ uniform distribution.</p>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="clip.clip-1"><span class="tsd-kind-call-signature">clip</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span>, <span class="tsd-kind-parameter">range</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#clip.clip-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Limit a value to a hard minimum and maximum.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
@@ -402,36 +412,37 @@ uniform distribution.</p>
 <div class="tsd-comment tsd-typography"></div></li>
 <li>
 <h5><span class="tsd-kind-parameter">range</span>: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
-<div class="tsd-comment tsd-typography"><p>Array containing the minimum and
-maximum possible values.</p>
+<div class="tsd-comment tsd-typography"><p>Two-element array containing
+the minimum and maximum possible values.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Limit a value to a hard minimum and maximum.</p>
-</div><aside class="tsd-sources">
+<h4>Static</h4></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:321</li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L350">roll/Roll.ts:350</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="createRandomSeed" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>create<wbr/>Random<wbr/>Seed</span><a href="#createRandomSeed" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="createRandomSeed.createRandomSeed-1"><span class="tsd-kind-call-signature">create<wbr/>Random<wbr/>Seed</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span><a href="#createRandomSeed.createRandomSeed-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
-<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4><p>Randomly generated <code>number[]</code> of random size [20,623]
-and values.</p>
+<div class="tsd-comment tsd-typography"><p>Generate a random seed array using <code>window.crypto</code>. Falls back to <code>node.crypto</code>
+or a final fallback to using <code>Math.random()</code> to fill an array.</p>
+</div>
+<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">[]</span></h4><p>Randomly generated <code>number[]</code> of random size [20,623] and values.</p>
 
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Generate a random seed array using <code>window.crypto</code>. Falls back to
-<code>node.crypto</code> or a final fallback to using <code>Math.random()</code> to fill an
-array.</p>
-</div><aside class="tsd-sources">
+<h4>Static</h4></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:295</li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L309">roll/Roll.ts:309</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="d-1" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>d</span><a href="#d-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="d-1.d-2"><span class="tsd-kind-call-signature">d</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">sides</span>, <span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#d-1.d-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Convenience function to generate a randomly seeded random number
+in the range 1-sides.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
@@ -443,34 +454,48 @@ array.</p>
 <li>
 <h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">skew</span>: <span class="tsd-signature-type">number</span></h5>
 <div class="tsd-comment tsd-typography"><p>In the range [-1,1]. If <code>skew</code> is a number,
-<code>roll.d</code> will use gaussian distribution instead of normal distribution.
-Pass <code>0</code> to use gaussian distribution without skew.</p>
+<code>Roll.d</code> will use gaussian distribution instead of normal distribution.</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Convenience function to generate a randomly seeded random number
-in the range 1-sides.</p>
-</div><aside class="tsd-sources">
+<h4>Note</h4><p>Pass <code>0</code> to use gaussian distribution without skew.</p>
+
+<h4>Static</h4></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:283</li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L299">roll/Roll.ts:299</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="random-1" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>random</span><a href="#random-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="random-1.random-2"><span class="tsd-kind-call-signature">random</span><span class="tsd-signature-symbol">(</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#random-1.random-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="random-1.random-2"><span class="tsd-kind-call-signature">random</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">skew</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#random-1.random-2" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Convenience function. Same as <code>.gaussian</code> if <code>skew</code> is a <code>number</code>,
+same as <code>.uniform</code> if <code>skew</code> is <code>undefined</code>.</p>
+</div>
+<div class="tsd-parameters">
+<h4 class="tsd-parameters-title">Parameters</h4>
+<ul class="tsd-parameter-list">
+<li>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">skew</span>: <span class="tsd-signature-type">number</span></h5>
+<div class="tsd-comment tsd-typography"><p>In the range [-1, 1]. Negative values skew data RIGHT,
+positive values skew data LEFT.</p>
+</div>
+<div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Convenience function to generate a randomly seeded random number
-normalized [0,1].</p>
-</div><aside class="tsd-sources">
+<h4>Note</h4><p>Pass <code>0</code> to use gaussian distribution without skew.</p>
+
+<h4>Static</h4></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:270</li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L285">roll/Roll.ts:285</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="round" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>round</span><a href="#round" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
 <li class="tsd-signature tsd-anchor-link" id="round.round-1"><span class="tsd-kind-call-signature">round</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span>, <span class="tsd-kind-parameter">places</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#round.round-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Round a value to a specific number of places.
+Decimal values &lt; 5 (for any given place) are rounded down.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
@@ -487,16 +512,16 @@ normalized [0,1].</p>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Round a value to a specific number of places. Decimal values &lt; 5
-(for any given place) are rounded down.</p>
-</div><aside class="tsd-sources">
+<h4>Static</h4></div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:333</li></ul></aside></li></ul></section>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L363">roll/Roll.ts:363</a></li></ul></aside></li></ul></section>
 <section class="tsd-panel tsd-member"><a id="scale" class="tsd-anchor"></a>
 <h3 class="tsd-anchor-link"><code class="tsd-tag ts-flagStatic">Static</code> <span>scale</span><a href="#scale" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></h3>
 <ul class="tsd-signatures">
-<li class="tsd-signature tsd-anchor-link" id="scale.scale-1"><span class="tsd-kind-call-signature">scale</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span>, <span class="tsd-kind-parameter">r1</span>, <span class="tsd-kind-parameter">r2</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#scale.scale-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
+<li class="tsd-signature tsd-anchor-link" id="scale.scale-1"><span class="tsd-kind-call-signature">scale</span><span class="tsd-signature-symbol">(</span><span class="tsd-kind-parameter">value</span>, <span class="tsd-kind-parameter">r1</span>, <span class="tsd-kind-parameter">r2</span><span class="tsd-signature-symbol">?</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">number</span><a href="#scale.scale-1" aria-label="Permalink" class="tsd-anchor-icon"><svg viewBox="0 0 24 24"><use href="#icon-anchor"></use></svg></a></li>
 <li class="tsd-description">
+<div class="tsd-comment tsd-typography"><p>Scale a value from a known range to a new range.</p>
+</div>
 <div class="tsd-parameters">
 <h4 class="tsd-parameters-title">Parameters</h4>
 <ul class="tsd-parameter-list">
@@ -511,16 +536,25 @@ normalized [0,1].</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li>
 <li>
-<h5><span class="tsd-kind-parameter">r2</span>: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
+<h5><code class="tsd-tag ts-flagOptional">Optional</code> <span class="tsd-kind-parameter">r2</span>: <span class="tsd-signature-symbol">[</span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">, </span><span class="tsd-signature-type">number</span><span class="tsd-signature-symbol">]</span></h5>
 <div class="tsd-comment tsd-typography"><p>The target range [min, max].</p>
 </div>
 <div class="tsd-comment tsd-typography"></div></li></ul></div>
 <h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">number</span></h4>
 <div class="tsd-comment tsd-typography">
-<h4>Static</h4><p>Scale a value from a known range to a new range.</p>
+<h4>Note</h4><p>Shorthand: If <code>r1</code> is not <code>[0, 1]</code> and <code>r2</code> is <code>undefined</code>,
+the actual <code>r1</code> is assumed to be <code>[0, 1]</code> and the actual <code>r2</code>
+is assumed to be the given <code>r1</code>.</p>
+
+<h4>Static</h4>
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-5">50</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">n</span><span class="hl-1">, [</span><span class="hl-5">0</span><span class="hl-1">, </span><span class="hl-5">100</span><span class="hl-1">], [</span><span class="hl-5">0</span><span class="hl-1">, </span><span class="hl-5">1</span><span class="hl-1">]) </span><span class="hl-7">// scaled === 0.5</span>
+</code><button>Copy</button></pre>
+
+<h4>Example</h4><pre><code class="language-ts"><span class="hl-7">// we can use the shorthand when we know the input value is in the range [0, 1]</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">n</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">random</span><span class="hl-1">()</span><br/><span class="hl-2">const</span><span class="hl-1"> </span><span class="hl-3">scaled</span><span class="hl-1"> = </span><span class="hl-0">Roll</span><span class="hl-1">.</span><span class="hl-4">scale</span><span class="hl-1">(</span><span class="hl-0">n</span><span class="hl-1">, [</span><span class="hl-5">0</span><span class="hl-1">, </span><span class="hl-5">10</span><span class="hl-1">]) </span><span class="hl-7">// scaled === 5</span>
+</code><button>Copy</button></pre>
 </div><aside class="tsd-sources">
 <ul>
-<li>Defined in roll/Roll.ts:306</li></ul></aside></li></ul></section></section></div>
+<li>Defined in <a href="https://github.com/justkd/roll/blob/3c2a616/src/roll/Roll.ts#L331">roll/Roll.ts:331</a></li></ul></aside></li></ul></section></section></div>
 <div class="col-sidebar">
 <div class="page-menu">
 <div class="tsd-navigation settings">
@@ -551,7 +585,7 @@ normalized [0,1].</p>
 <li><a href="#modes" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>modes</span></a></li>
 <li><a href="#random" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>random</span></a></li>
 <li><a href="#seed" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>seed</span></a></li>
-<li><a href="#standardDeviation" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>standard<wbr/>Deviation</span></a></li>
+<li><a href="#stdDev" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>std<wbr/>Dev</span></a></li>
 <li><a href="#uniform" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-1024"></use></svg><span>uniform</span></a></li>
 <li><a href="#clip" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>clip</span></a></li>
 <li><a href="#createRandomSeed" class=""><svg class="tsd-kind-icon" viewBox="0 0 24 24"><use href="#icon-2048"></use></svg><span>create<wbr/>Random<wbr/>Seed</span></a></li>

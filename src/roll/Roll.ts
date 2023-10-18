@@ -16,7 +16,11 @@ import { Uniform } from "./Uniform";
 import { Gaussian } from "./Gaussian";
 import { Elemstats } from "./ElemStats";
 
-/** Allowed seed types. */
+/**
+ * Allowed seed types.
+ * A `number`, `number[]`, `Uint32Array`, or `undefined` representing a seed value.
+ * @typedef {( number | number[] | Uint32Array | undefined )} Seed
+ */
 export type Seed = number | number[] | Uint32Array | undefined;
 
 /**
@@ -55,113 +59,112 @@ export type Seed = number | number[] | Uint32Array | undefined;
  */
 export class Roll {
   /**
-   * Re-seed the manager. Automatically clears history.
-   * @param {Seed} [seed] - Unsigned 32-bit integer `number`, `Uint32Array`, or
-   * `number[]` of arbitrary size/values.
+   * Set the seed or get the current seed if no param is given. Automatically
+   * clears `history` when setting a new seed.
+   * @param {Seed} [seed] - Unsigned 32-bit integer or number array of arbitrary size/values.
    * @returns {Seed} Returns the current seed.
    * @readonly
    */
   readonly seed: (seed?: Seed) => Seed;
 
   /**
-   * Return a copy of the internal `history` object with no references.
+   * Retrieve a copy of the internal history array with no references.
    * @returns {number[]} Returns the current `history`.
    * @readonly
    */
   readonly history: () => number[];
 
   /**
-   * Get or set the maximum history size.
-   * @param {number} [size] - The maximum history size. If `size=undefined` is
-   * this function will return the current `maxHistory`. Default `maxHistory`
-   * is `Infinity`.
+   * Set the maximum `history` size or get the current size if no param is given.
+   * Default on instance creation is `Infinity`.
+   * @param {number} [size] - The desired maximum history size.
    * @returns {number} Returns the current `maxHistory`.
    * @readonly
    */
   readonly maxHistory: (size?: number) => number;
 
   /**
-   * Reset `history` but retain the current `maxHistory`.
+   * Reset the internal `history` array. Does not change current `maxHistory`.
    * @readonly
    */
   readonly clearHistory: () => void;
 
   /**
-   * Generates a 53-bit random real in the interval [0,1] with
-   * uniform distribution.
+   * Generates a 53-bit random real in the interval [0, 1] with uniform distribution.
    * @returns {number}
    * @readonly
    */
   readonly uniform: () => number;
 
   /**
-   * Generates a 53-bit random real in the interval [0,1] with normal
-   * distribution.
-   * @param {number} [skew=0] - In the range [-1,1]. Negative values skew data
-   * RIGHT, and positive values skew data LEFT. Default `skew=0`.
+   * Generates a 53-bit random real in the interval [0, 1] with gaussian distribution.
+   * @param {number} [skew=0] - In the range [-1,1]. Negative values skew data RIGHT,
+   * and positive values skew data LEFT.
    * @returns {number}
    * @readonly
    */
   readonly gaussian: (skew?: number) => number;
 
   /**
-   * Simulates a die-rolling metaphor. Generates a 53-bit random real in the
-   * interval [0,1] with uniform or gaussian distribution, then scales it to a range [1,n]
-   * where n is the number of sides, then rounds to whole number.
-   * @param {number} sides - Number of sides to represent. Allows but ignores
-   * decimals.
-   * @param {number} [skew] - In the range [-1,1]. If `skew` is a number,
-   * `roll.d` will use gaussian distribution instead of normal distribution.
-   * Pass `0` to use gaussian distribution without skew.
+   * Simulates a die-rolling metaphor. First generates a 53-bit random real in the
+   * interval [0, 1] with uniform or gaussian distribution, then scales it to a range
+   * `[1, n]` where `n` is the number of sides, then rounds to whole number.
+   * @param {number} sides - The number of sides the die should represent.
+   * Allows but ignores decimal places.
+   * @param {number} [skew] - In the range [-1, 1]. Negative values skew data RIGHT,
+   * positive values skew data LEFT.
+   * @note Pass `0` to use gaussian distribution without skew.
    * @returns {number}
    * @readonly
    */
   readonly d: (sides: number, skew?: number) => number;
 
   /**
-   * Convenience function. Alias for `uniform()`.
+   * Convenience function. Same as `.gaussian` if `skew` is a `number`, same as
+   * `.uniform` if `skew` is `undefined`.
+   * @param {number} [skew] - In the range [-1, 1]. Negative values skew data RIGHT,
+   * positive values skew data LEFT.
+   * @note Pass `0` to use gaussian distribution without skew.
    * @returns {number}
    * @readonly
    */
-  readonly random: () => number;
+  readonly random: (skew?: number) => number;
 
   /**
-   * Calculate the statistical mean of a `number[]` or the current `history()`.
-   * @param {number[]} [arr] - The array on which to operate.
-   * Defaults to `history()` if `arr=undefined`.
+   * Calculate the statistical mean of a given `number[]` or the current `history`.
+   * @param {number[]} [arr] - Target array on which to operate.
+   * Defaults to the current `history` if `arr` is `undefined`.
    * @returns {number}
    * @readonly
    */
   readonly mean: (arr?: number[]) => number;
 
   /**
-   * Calculate the statistical median of a `number[]` or the current
-   * `history()`.
-   * @param {number[]} [arr] - The array on which to operate.
-   * Defaults to `history()` if `arr=undefined`.
+   * Calculate the statistical median of a given `number[]` or the current `history`.
+   * @param {number[]} [arr] -  Target array on which to operate.
+   * Defaults to the current `history` if `arr` is `undefined`.
    * @returns {number}
    * @readonly
    */
   readonly median: (arr?: number[]) => number;
 
   /**
-   * Calculate the statistical modes of a `number[]` or the current `history()`.
-   * @param {number[]} [arr] - The array on which to operate.
-   * Defaults to `history()` if `arr=undefined`.
+   * Calculate the statistical modes of a given `number[]` or the current `history`.
+   * @param {number[]} [arr] - Target array on which to operate.
+   * Defaults to the current `history` if `arr` is `undefined`.
    * @returns {number[]}
    * @readonly
    */
   readonly modes: (arr?: number[]) => number[];
 
   /**
-   * Calculate the standard deviation of a `number[]` or the current
-   * `history()`.
-   * @param {number[]} [arr] - The array on which to operate. Defaults to
-   * `history()` if `arr=undefined`.
-   * @returns {number} Standard deviation is normalized [0,1].
+   * Calculate the standard deviation of a given `number[]` or the current `history`.
+   * @param {number[]} [arr] - Target array on which to operate.
+   * Defaults to the current `history` if `arr` is `undefined`.
+   * @returns {number} Standard deviation normalized [0, 1].
    * @readonly
    */
-  readonly standardDeviation: (arr?: number[]) => number;
+  readonly stdDev: (arr?: number[]) => number;
 
   /**
    * Instantiates a new `Roll()`
@@ -199,6 +202,12 @@ export class Roll {
         history = new History();
         history.max(max);
       },
+      random: (skew?: number) => {
+        const normal = typeof skew !== "number";
+        const g = $private.gaussian;
+        const u = $private.uniform;
+        return normal ? u() : g(skew);
+      },
       uniform: () => {
         const rand = uniform.random();
         history.push(rand);
@@ -214,7 +223,7 @@ export class Roll {
           const u = uniform;
           const r = typeof skew === "number" ? Gaussian(u, skew) : u.random();
           const n = new Scaled(r);
-          n.scale(1, sides).round(0);
+          n.scale(1, Math.floor(sides)).round(0);
           const num = n.value();
           history.push(num);
           return num;
@@ -244,14 +253,16 @@ export class Roll {
     this.history = () => $private.history();
     this.maxHistory = (size) => $private.maxHistory(size);
     this.clearHistory = () => $private.clearHistory();
+
+    this.d = (sides, skew) => $private.d(sides, skew);
+    this.random = (skew) => $private.random(skew);
     this.uniform = () => $private.uniform();
     this.gaussian = (skew) => $private.gaussian(skew);
-    this.d = (sides) => $private.d(sides);
-    this.random = () => $private.uniform();
+
     this.mean = (arr) => $private.mean(arr);
     this.median = (arr) => $private.median(arr);
     this.modes = (arr) => $private.modes(arr);
-    this.standardDeviation = (arr) => $private.stdDev(arr);
+    this.stdDev = (arr) => $private.stdDev(arr);
 
     Object.keys(this).forEach((key) => {
       Object.defineProperty(this, key, {
@@ -263,72 +274,91 @@ export class Roll {
   }
 
   /**
-   * @static Convenience function to generate a randomly seeded random number
-   * normalized [0,1].
+   * Convenience function. Same as `.gaussian` if `skew` is a `number`,
+   * same as `.uniform` if `skew` is `undefined`.
+   * @param {number} [skew] - In the range [-1, 1]. Negative values skew data RIGHT,
+   * positive values skew data LEFT.
+   * @note Pass `0` to use gaussian distribution without skew.
    * @returns {number}
+   * @static
    */
-  static random(): number {
-    return new Roll().random();
+  static random(skew?: number): number {
+    return new Roll().random(skew);
   }
 
   /**
-   * @static Convenience function to generate a randomly seeded random number
+   * Convenience function to generate a randomly seeded random number
    * in the range 1-sides.
    * @param {number} sides - The desired number of sides to simulate.
    * @param {number} [skew] - In the range [-1,1]. If `skew` is a number,
-   * `roll.d` will use gaussian distribution instead of normal distribution.
-   * Pass `0` to use gaussian distribution without skew.
+   * `Roll.d` will use gaussian distribution instead of normal distribution.
+   * @note Pass `0` to use gaussian distribution without skew.
    * @returns {number}
+   * @static
    */
   static d(sides: number, skew?: number): number {
-    const roll = new Roll();
-    return roll.d(sides, skew) as number;
+    return new Roll().d(sides, skew);
   }
 
   /**
-   * @static Generate a random seed array using `window.crypto`. Falls back to
-   * `node.crypto` or a final fallback to using `Math.random()` to fill an
-   * array.
-   * @return {number[]} Randomly generated `number[]` of random size [20,623]
-   * and values.
+   * Generate a random seed array using `window.crypto`. Falls back to `node.crypto`
+   * or a final fallback to using `Math.random()` to fill an array.
+   * @return {number[]} Randomly generated `number[]` of random size [20,623] and values.
+   * @static
    */
   static createRandomSeed(): number[] {
     return Uniform.createRandomSeed();
   }
 
   /**
-   * @static Scale a value from a known range to a new range.
+   * Scale a value from a known range to a new range.
    * @param {number} value - The initial value.
    * @param {[number, number]} r1 - The initial range [min, max].
-   * @param {[number, number]} r2 - The target range [min, max].
+   * @param {[number, number]} [r2] - The target range [min, max].
+   * @note Shorthand: If `r1` is not `[0, 1]` and `r2` is `undefined`,
+   * the actual `r1` is assumed to be `[0, 1]` and the actual `r2`
+   * is assumed to be the given `r1`.
    * @returns {number}
+   * @static
+   * @example
+   * const n = 50
+   * const scaled = Roll.scale(n, [0, 100], [0, 1]) // scaled === 0.5
+   * @example
+   * // we can use the shorthand when we know the input value is in the range [0, 1]
+   * const n = Roll.random()
+   * const scaled = Roll.scale(n, [0, 10]) // scaled === 5
    */
   static scale(
     value: number,
     r1: [number, number],
-    r2: [number, number],
+    r2?: [number, number],
   ): number {
-    return Scaled.scale(value, r1, r2);
+    if (r1[0] !== 0 && r1[1] !== 1 && !r2) {
+      return Scaled.scale(value, [0, 1], r1);
+    }
+    return Scaled.scale(value, r1, r2!);
   }
 
   /**
-   * @static Limit a value to a hard minimum and maximum.
+   * Limit a value to a hard minimum and maximum.
    * @param {number} value - The initial value.
-   * @param {[number, number]} range - Array containing the minimum and
-   * maximum possible values.
+   * @param {[number, number]} range - Two-element array containing
+   * the minimum and maximum possible values.
    * @returns {number}
+   * @static
    */
   static clip(value: number, range: [number, number]): number {
     return Scaled.clip(value, range);
   }
 
   /**
-   * @static Round a value to a specific number of places. Decimal values < 5
-   * (for any given place) are rounded down.
+   * Round a value to a specific number of places.
+   * Decimal values < 5 (for any given place) are rounded down.
    * @param {number} value - The initial value.
    * @param {number} [places=0] - The desired number of decimal places.
    * `0` results in a whole number. Default is `places=0`.
    * @returns {number}
+   * @static
    */
   static round(value: number, places: number): number {
     return Scaled.round(value, places);
