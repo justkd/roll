@@ -1,6 +1,5 @@
 /**
  * @file Roll.test.ts
- * @version 2.1.0
  * @author Cadence Holmes
  * @copyright Cadence Holmes 2023
  * @license MIT
