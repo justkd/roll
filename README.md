@@ -44,7 +44,7 @@ const avg = roll.mean();        // retrieve the current average
 
 ## Extended Use
 
-#### `Roll` can use either uniform (normal) or gaussian distribution.
+`Roll` can use either uniform (normal) or gaussian distribution.
 ```
 const roll = new Roll();
 
@@ -61,7 +61,7 @@ const gaussian = roll.gaussian();
 const gaussianSkew = roll.gaussian(0.15); 
 ```
 
-#### `Roll` can use either uniform (normal) or gaussian distribution (part II).
+`Roll` can use either uniform (normal) or gaussian distribution (part II).
 ```
 const roll = new Roll();
 
@@ -78,7 +78,7 @@ const d12 = roll.d(12, 0.85);
 const d20 = roll.d(20, -0.35);
 ```
 
-#### Each instance of `Roll` can be given a `maxHistory`.
+Each instance of `Roll` can be given a `maxHistory`.
 ```
 const roll = new Roll({ maxHistory: 1000 });
 
@@ -94,7 +94,7 @@ const stats = {
 };
 ```
 
-#### Note: While each instance of `Roll` will allow using both normal and gaussian distribution, you should use different instances if you need to track the distribution over time.
+Note: While each instance of `Roll` will allow using both normal and gaussian distribution, you should use different instances if you need to track the distribution over time.
 ```
 const maxHistory = 1000;
 
@@ -124,7 +124,7 @@ const gaussianStats = {
 };
 ```
 
-#### Set the max history in the constructor or with the instance method.
+Set the max history in the constructor or with the instance method.
 ```
 /* set the initial `maxHistory` to `99`, default is `maxHistory === Infinity` */
 const roll = new Roll({ maxHistory: 99 });
@@ -136,7 +136,7 @@ roll.maxHistory(10);            // set instance `maxHistory` to `10`
 console.log(roll.maxHistory()); // `maxHistory === 10`
 ``` 
 
-#### Giving `Roll` a max history will allow you to calculate rolling statistics.
+Giving `Roll` a max history will allow you to calculate rolling statistics.
 ```
 const roll = new Roll({ maxHistory: 10 });
 
@@ -148,7 +148,7 @@ setInterval(() => {
 }, 1000);
 ```
 
-#### Round to `n` decimal places using the static method `Roll.round()`.
+Round to `n` decimal places using the static method `Roll.round()`.
 ```
 const roll = new Roll();
 
@@ -164,7 +164,7 @@ const whole = Roll.round(rand * 100, 0)
 // Roll.round(0.424242, 3) === 0.424
 ```
 
-#### Numbers can be scaled from any known range to another using the static method `Roll.scale()`.
+Numbers can be scaled from any known range to another using the static method `Roll.scale()`.
 ```
 const n = Roll.random();
 const r1 = [0, 1];  // initial range
@@ -177,7 +177,7 @@ const scaled = Roll.scale(n, r1, r2); // if `n === 0.5` then `scaled === 33.5`
 // Roll.scale(12975.2123, [0, 9001], [0, 1]) === 1.4415300855460504
 ```
 
-#### Numbers can be clipped to a minimum and maximum allowed value using the static method `Roll.clip()`.
+Numbers can be clipped to a minimum and maximum allowed value using the static method `Roll.clip()`.
 ```
 const n = Roll.random();
 const min = 0.2;
@@ -189,7 +189,7 @@ const clipped = Roll.clip(n, [min, max]);
 // Roll.clip(0.5, [0, 1]) === 0.5
 ```
 
-#### Generate a whole number between 1 and MAX_SAFE_INTEGER using gaussian distribution.
+Generate a whole number between 1 and MAX_SAFE_INTEGER using gaussian distribution.
 ```
 const getGaussianWhole = () => {
     const n = Roll.random(0);
@@ -200,7 +200,7 @@ const getGaussianWhole = () => {
 console.log(getGaussianWhole())
 ```
 
-#### Generate and set a new random seed with the static method `Roll.createRandomSeed()` and instance method `roll.seed()`.
+Generate and set a new random seed with the static method `Roll.createRandomSeed()` and instance method `roll.seed()`.
 ```
 const roll = new Roll();
 
