@@ -34,9 +34,14 @@
       "command": "yarn build:docs",
       "runAtStart": false
     },
-    "publish": {
-      "name": "publish",
-      "command": "yarn publish",
+    "publish:private": {
+      "name": "publish:private",
+      "command": "npm run publish:private",
+      "runAtStart": false
+    },
+    "publish:public": {
+      "name": "publish:public",
+      "command": "npm run publish:public",
       "runAtStart": false
     }
   }

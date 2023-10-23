@@ -8,7 +8,7 @@
 
 import { describe, it } from "mocha";
 import { expect } from "chai";
-import { Roll, Seed } from "../src/roll/Roll";
+import { Roll, Seed } from "../src/lib/Roll";
 
 describe(`Roll`, () => {
   /* Generate a random integer 0-100 */
