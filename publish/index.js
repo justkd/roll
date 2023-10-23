@@ -1,6 +1,1 @@
-"use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Roll = void 0;
-var Roll_1 = require("./lib/Roll");
-Object.defineProperty(exports, "Roll", { enumerable: true, get: function () { return Roll_1.Roll; } });
-//# sourceMappingURL=index.js.map
+"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports.Roll=void 0;var Roll_1=require("./lib/Roll");Object.defineProperty(exports,"Roll",{enumerable:!0,get:function(){return Roll_1.Roll}});
