@@ -4,7 +4,7 @@
     "module": "commonjs",
     "declaration": true,
     "declarationMap": true,
-    "outDir": "lib",
+    "outDir": "publish",
     "sourceMap": true,
     "strict": true,
     "allowJs": true,
@@ -18,5 +18,5 @@
     "types": ["node"]
   },
   "include": ["src"],
-  "exclude": ["node_modules", "lib", "docs", "test"]
+  "exclude": ["node_modules", "dist", "lib", "docs", "test"]
 }

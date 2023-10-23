@@ -1,7 +1,7 @@
 {
   "name": "@justkd/roll",
   "author": "Cadence Holmes, @justkd",
-  "version": "2.1.2",
+  "version": "2.1.4",
   "license": "MIT",
   "description": "Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.",
   "keywords": [
@@ -25,11 +25,11 @@
     "test": "npx mocha --require mocha-dom",
     "watch": "npx mocha -w --require mocha-dom",
     "build": "npm run build:lib && npm run build:docs && npm run minify",
-    "build:lib": "npx tsc -p .",
-    "build:docs": "npx typedoc --out docs src/index.ts --cleanOutputDir",
-    "minify": "npx minify-all-js ./lib && npx minify-all-js ./docs",
-    "publish": "npm publish",
-    "publish-public": "npm publish --access public"
+    "build:lib": "rm ./publish/lib -d -r -f && npx tsc && cp README.md publish && cp LICENSE publish",
+    "build:docs": "rm ./docs -d -r && npx typedoc --out docs src/index.ts --cleanOutputDir",
+    "minify": "npx minify-all-js ./dist/lib && npx minify-all-js ./docs",
+    "publish:private": "cd publish && npm run publish",
+    "publish:public": "cd publish && npm run publish:public"
   },
   "dependencies": {},
   "devDependencies": {
@@ -67,10 +67,10 @@
       "test/**/*.ts"
     ],
     "require": "ts-node/register",
-    "main": "lib/index",
-    "types": "lib/index",
+    "main": "dist/lib/index",
+    "types": "dist/lib/index",
     "files": [
-      "lib",
+      "dist",
       "LICENSE",
       "README.md",
       "package.json"
