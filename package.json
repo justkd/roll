@@ -1,7 +1,7 @@
 {
   "name": "@justkd/roll",
   "author": "Cadence Holmes, @justkd",
-  "version": "2.1.5",
+  "version": "2.1.6",
   "license": "MIT",
   "description": "Class representing a pseudorandom number manager. Includes Mersenne Twister uniform distribution, Box Mueller gaussian distribution, n-sided die rolling, history of variable max size, elementary statistics, and scale/clip/round convenience functions.",
   "keywords": [
@@ -27,7 +27,7 @@
     "build": "npm run build:lib && npm run build:docs && npm run minify",
     "build:lib": "rm ./publish/lib -d -r -f && npx tsc && cp README.md publish && cp LICENSE publish",
     "build:docs": "rm ./docs -d -r && npx typedoc --out docs src/index.ts --cleanOutputDir",
-    "minify": "npx minify-all-js ./dist/lib && npx minify-all-js ./docs",
+    "minify": "npx minify-all-js ./publish && npx minify-all-js ./docs",
     "publish:private": "cd publish && npm run publish",
     "publish:public": "cd publish && npm run publish:public"
   },
